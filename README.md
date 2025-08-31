@@ -45,7 +45,7 @@ This section provides the general information about the application, used tech s
 **Author(s)** | Viktor Volkov
 **Publisher(s)** | DevPM
 **Platform(s)** | Android
-**Data storage** | Local database (SQLite/Realm) + optional synchronization
+**Data storage** | Local database (Room: SQLite/Realm) + optional synchronization
 **UI/UX** | Modern and responsive design
 **Core algorythm** | Repetition interval algorithm based on SM-2 or a modified approach
 
@@ -69,8 +69,8 @@ This section defines the general project's structure and provides a top-level fi
 └─>📜 TODOs.md           # Task list
 ```
 
-- `─` denotes an item
+- `─` denotes an item;
 - `<` denotes a hidden item ingored by default;
 - `*` denotes an item present in the project but ignored by VCS (put in the *.gitignore* file);
-- `>` denotes an item ignored locally (at specific user's project level — should be put in the *.git/info/exclude* file)
-- `>>` denotes an item ignored globally (at specific user's system level — should be put in the *~/.gitignore_global* file)
+- `>` denotes an item ignored locally (at specific user's project level — should be put in the *.git/info/exclude* file);
+- `>>` denotes an item ignored globally (at specific user's system level — should be put in the *~/.gitignore_global* file).
