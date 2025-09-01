@@ -53,20 +53,28 @@ This section provides the general information about the application, used tech s
 This section defines the general project's structure and provides a top-level file/directory layout. Some items may not be present in the actual project or listed here depending on the specific user's configuration and current project state.
 
 ```sh
-.📂                      # Project root
-├─<📁 .git               # Version control files
-├>>📁 .tmp               # Temporary files
-├──📁 assets             # Additional value files
-├─*📁 img                # Binary graphics
-├─*📁 res                # Static resources
-├──📁 samples            # Usage examples
-├──📁 src                # Source code
-├──📁 svg                # Vector graphics
-├──📁 wiki               # Knowledge base
-├──📜 .gitignore         # VCS blob ignores
-├──📜 README.md          # Project overview
-├──📜 SETUP.md           # Setup instructions
-└─>📜 TODOs.md           # Task list
+.📂                         # Project root
+├─<📁 .git                  # Version control files
+├─*📁 .gradle               # Cache for Gradle files and data
+├─*📁 .idea                 # IDE configuration files
+├>>📁 .tmp                  # Temporary files
+├──📂 app                   # Application files (main module)
+│  ├──📁 src                # Source code
+│  ├──📜 .gitignore         # Build ignores
+│  ├──📜 build.gradle.kts   # Module build script configurations
+│  └──📜 proguard-rules.pro # Custom rules config for ProGuard
+├──📁 gradle                # Building system files
+├──📜 .gitignore            # VCS blob ignores
+├──📜 build.gradle.kts      # Main build script configuration
+├──📜 gradle.properties     # Gradle build environment props
+├──📜 gradlew               # Gradle wrapper scripts (Unix-based)
+├──📜 gradlew.bat           # Gradle wrapper scripts (Windows)
+├─*📜 local.properties      # User-specific configuration values
+├──📜 README.md             # Project overview (English)
+├──📜 README-ru.md          # Project overview (Russian)
+├──📜 settings.gradle.kts   # Kotlin DSL script for project structure
+├──📜 SETUP.md              # Setup instructions
+└─>📜 TODOs.md              # Task list for developers
 ```
 
 - `─` denotes an item;
