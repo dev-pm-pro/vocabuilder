@@ -62,8 +62,10 @@ class TextEditView @JvmOverloads constructor(
         binding.textBox.typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL)
 
         // Refresh transform method for passwords
-        if (type and InputType.TYPE_TEXT_VARIATION_PASSWORD == InputType.TYPE_TEXT_VARIATION_PASSWORD ||
-            type and InputType.TYPE_NUMBER_VARIATION_PASSWORD == InputType.TYPE_NUMBER_VARIATION_PASSWORD) {
+        val inputClass = type and InputType.TYPE_MASK_CLASS
+
+        if ((inputClass == InputType.TYPE_CLASS_TEXT && (type and InputType.TYPE_TEXT_VARIATION_PASSWORD == InputType.TYPE_TEXT_VARIATION_PASSWORD))
+            || (inputClass == InputType.TYPE_CLASS_NUMBER && (type and InputType.TYPE_NUMBER_VARIATION_PASSWORD == InputType.TYPE_NUMBER_VARIATION_PASSWORD))) {
             binding.textBox.transformationMethod = PasswordTransformationMethod.getInstance()
         } else {
             binding.textBox.transformationMethod = null
