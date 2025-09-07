@@ -24,6 +24,15 @@ import java.time.ZoneId
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
+
+    private val controls by lazy {
+        listOf(
+            binding.loginView, binding.passwordView, binding.passRepeatView,
+            binding.firstNameView, binding.lastNameView,
+            binding.birthdateView, binding.emailView, binding.phoneView
+        )
+    }
+
     private val app: App by lazy {
         application as App
     }
@@ -31,6 +40,9 @@ class RegisterActivity : AppCompatActivity() {
         app.db.userDao()
     }
 
+    private fun clearAll() {
+        controls.forEach { it.clearValue() }
+    }
     private suspend fun saveUser(user: User): Boolean {
         return try {
             userDao.insertUser(user)
@@ -103,6 +115,10 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        binding.resetBtn.setOnClickListener {
+            clearAll()
         }
     }
 }
