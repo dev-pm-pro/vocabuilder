@@ -1,6 +1,8 @@
 package com.devpm.vocabuilder.data.models
 
+import androidx.room.Dao
 import androidx.room.Entity
+import androidx.room.Insert
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "users")
@@ -15,4 +17,11 @@ data class User(
     val phone: String? = null,
     val created: Long
 ) {
+}
+
+@Dao
+interface UserDao {
+
+    @Insert
+    suspend fun insertUser(user: User)
 }
