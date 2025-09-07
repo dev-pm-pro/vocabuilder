@@ -15,6 +15,8 @@ import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.ActivityRegisterBinding
 import com.google.android.material.snackbar.Snackbar
+import java.time.LocalDate
+import java.time.ZoneId
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -46,7 +48,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerBtn.setOnClickListener {
             val user = User(
                 login = "testLogin",
-                password = "testPass"
+                password = "testPass",
+                created = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
             )
             if (!validateUser(user)) {
                 Snackbar.make(binding.root, R.string.check_form_text, Snackbar.LENGTH_SHORT).apply {
