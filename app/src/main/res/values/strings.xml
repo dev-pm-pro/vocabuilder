@@ -23,7 +23,7 @@
     <string name="reset_button_text">Reset</string>
     <string name="retry_text">Retry</string>
     <integer name="type_date" translatable="false">20</integer> <!-- InputType.TYPE_CLASS_DATETIME (4) or InputType.TYPE_DATETIME_VARIATION_DATE (16) -->
-    <integer name="type_email" translatable="false">32</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS (32) -->
+    <integer name="type_email" translatable="false">33</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS (32) -->
     <integer name="type_password" translatable="false">129</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_PASSWORD (128) -->
     <integer name="type_phone" translatable="false">3</integer> <!-- TYPE_CLASS_PHONE (3) -->
 </resources>
