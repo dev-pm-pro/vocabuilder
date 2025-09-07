@@ -12,7 +12,7 @@
         android:text="label"
         android:textFontWeight="500"
         android:layout_weight="1"
-        style="@style/FormLabel"
+        style="@style/BaseLabel.FormLabel"
         />
     <EditText
         android:id="@+id/textBox"
@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
         android:text="value"
-        style="@style/FormBox"
+        style="@style/BaseBox.FormBox"
         />
 </LinearLayout>
