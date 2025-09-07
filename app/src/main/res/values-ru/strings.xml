@@ -1,0 +1,18 @@
+<resources>
+    <string name="birthdate_hint">ДД.ММ.ГГГГ</string>
+    <string name="birthdate_label">Дата рождения</string>
+    <string name="email_hint">example@mail.ru</string>
+    <string name="first_name_label">Имя</string>
+    <string name="last_name_label">Фамилия</string>
+    <string name="login_hint">От 3 до 20 знаков</string>
+    <string name="login_label">Логин</string>
+    <string name="name_hint">Не более 30 знаков</string>
+    <string name="password_label">Пароль</string>
+    <string name="password_hint">Не менее 10 знаков, включая буквы в обоих регистрах, цифры и спецсимволы</string>
+    <string name="pass_repeat_hint">Подтверждение пароля</string>
+    <string name="pass_repeat_label">Пароль (повтор)</string>
+    <string name="phone_label">Телефон</string>
+    <string name="register_button_text">Регистрироваться</string>
+    <string name="register_header_text">Регистрация</string>
+    <string name="reset_button_text">Сбросить</string>
+</resources>
