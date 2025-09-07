@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextEditView">
+        <attr name="hint" format="string" />
+        <attr name="label" format="string" />
+        <attr name="value" format="string" />
+        <attr name="type" format="integer" />
+    </declare-styleable>
+</resources>
