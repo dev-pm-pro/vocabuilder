@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">Vocabuilder</string>
     <string name="birthdate_hint">DD.MM.YYYY</string>
     <string name="birthdate_label">Birth date</string>
+    <string name="check_form_text">Please make sure the form is filled out correctly</string>
     <string name="email_hint">example@mail.com</string>
     <string name="email_label" translatable="false">Email</string>
     <string name="first_name_label">First name</string>
@@ -17,7 +18,10 @@
     <string name="phone_label">Phone</string>
     <string name="register_button_text">Register</string>
     <string name="register_header_text">Register</string>
+    <string name="register_failure_text">Error while user registering.\n Try again later</string>
+    <string name="register_success_text">Registration completed successfully.\n Welcome, %1$s!</string>
     <string name="reset_button_text">Reset</string>
+    <string name="retry_text">Retry</string>
     <integer name="type_date" translatable="false">20</integer> <!-- InputType.TYPE_CLASS_DATETIME (4) or InputType.TYPE_DATETIME_VARIATION_DATE (16) -->
     <integer name="type_email" translatable="false">32</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS (32) -->
     <integer name="type_password" translatable="false">129</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_PASSWORD (128) -->

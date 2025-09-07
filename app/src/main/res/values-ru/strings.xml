@@ -1,6 +1,7 @@
 <resources>
     <string name="birthdate_hint">ДД.ММ.ГГГГ</string>
     <string name="birthdate_label">Дата рождения</string>
+    <string name="check_form_text">Проверьте правильность заполнения формы</string>
     <string name="email_hint">example@mail.ru</string>
     <string name="first_name_label">Имя</string>
     <string name="last_name_label">Фамилия</string>
@@ -13,6 +14,9 @@
     <string name="pass_repeat_label">Пароль (повтор)</string>
     <string name="phone_label">Телефон</string>
     <string name="register_button_text">Регистрироваться</string>
+    <string name="register_failure_text">Ошибка регистрации пользователя.\n Пожалуйста, попробуйте позднее</string>
     <string name="register_header_text">Регистрация</string>
+    <string name="register_success_text">Регистрация прошла успешно.\n Добро пожаловать, %1$s!</string>
     <string name="reset_button_text">Сбросить</string>
+    <string name="retry_text">Повторить</string>
 </resources>
