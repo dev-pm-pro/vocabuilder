@@ -5,33 +5,57 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
-import android.view.Gravity
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.ActivityRegisterBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.ZoneId
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-
-    private fun saveUser(user: User): Boolean {
-        return false
+    private val app: App by lazy {
+        application as App
     }
-    private fun trySaveUser(user: User): Boolean {
-        if (saveUser(user)) return true
-        Snackbar.make(binding.root, R.string.register_failure_text, Snackbar.LENGTH_LONG).also { msg ->
-            msg.setAction(getString(R.string.retry_text).uppercase()) {
-                trySaveUser(user)
+    private val userDao by lazy {
+        app.db.userDao()
+    }
+
+    private suspend fun saveUser(user: User): Boolean {
+        return try {
+            userDao.insertUser(user)
+            true
+        } catch (e: Exception) {
+            Log.e("saveUser", "Error while saving user", e)
+            false
+        }
+    }
+    private suspend fun trySaveUser(user: User): Boolean {
+        val success = saveUser(user)
+        if (success) return true
+
+        // Switch to Main thread to show Snackbar
+        withContext(Dispatchers.Main) {
+            Snackbar.make(binding.root, R.string.register_failure_text, Snackbar.LENGTH_LONG).also { msg ->
+                msg.setAction(getString(R.string.retry_text).uppercase()) {
+                    // Relaunch saving on button click inside the main coroutine
+                    CoroutineScope(Dispatchers.Main).launch {
+                        trySaveUser(user)
+                    }
+                }
+                msg.setBackgroundTint(ContextCompat.getColor(this@RegisterActivity, R.color.errorT))
+                msg.show()
             }
-            msg.setBackgroundTint(ContextCompat.getColor(this@RegisterActivity, R.color.errorT))
-            msg.show()
         }
         return false
     }
@@ -58,24 +82,27 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 return@setOnClickListener // explicit return from lambda
             }
-            if (!trySaveUser(user))
-                return@setOnClickListener
 
-            val login = user.login
-            val message = getString(R.string.register_success_text, user.login)
+            CoroutineScope(Dispatchers.IO).launch {
+                val saved = trySaveUser(user)
+                if (saved) {
+                    withContext(Dispatchers.Main) {
+                        val message = getString(R.string.register_success_text, user.login)
+                        val spannable = SpannableStringBuilder(message)
+                        val start = message.indexOf(user.login)
+                        val end = start + user.login.length
 
-            val spannable = SpannableStringBuilder(message)
-            val start = message.indexOf(login)
-            val end = start + login.length
+                        spannable.setSpan(
+                            StyleSpan(Typeface.BOLD),
+                            start,
+                            end,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
 
-            spannable.setSpan(
-                StyleSpan(Typeface.BOLD),
-                start,
-                end,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegisterActivity, spannable, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 }
