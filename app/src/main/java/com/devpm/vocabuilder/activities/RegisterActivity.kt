@@ -83,8 +83,13 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.registerBtn.setOnClickListener {
             val user = User(
-                login = "testLogin",
-                password = "testPass",
+                login = binding.loginView.getValue()!!,
+                password = binding.passwordView.getValue()!!,
+                firstName = binding.firstNameView.getValue(),
+                lastName = binding.lastNameView.getValue(),
+                birthDate = binding.birthdateView.getValue(),
+                email = binding.emailView.getValue(),
+                phone = binding.phoneView.getValue(),
                 created = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
             )
             if (!validateUser(user)) {
