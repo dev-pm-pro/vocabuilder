@@ -32,6 +32,9 @@ class TextEditView @JvmOverloads constructor(
     fun clearError() {
         binding.textBox.error = null
     }
+    fun clearValue() {
+        binding.textBox.text?.clear()
+    }
     fun getValue(): String = binding.textBox.text.toString()
     fun setError(message: String) {
         binding.textBox.error = message
