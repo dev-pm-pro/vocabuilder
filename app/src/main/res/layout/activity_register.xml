@@ -5,39 +5,114 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".RegisterActivity">
+    tools:context=".activities.RegisterActivity"
+    style="@style/Layout"
+    >
     <TextView
         android:id="@+id/titleHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Регистрация"
+        android:text="@string/register_header_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/surnameLbl"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleHeader"
-        android:text="Фамилия"
-        android:layout_marginTop="20dp"
-        android:paddingRight="10dp"
-        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TopHeader"
         />
-    <EditText
-        android:id="@+id/surnameBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Не более 30 символов"
-        app:layout_constraintStart_toEndOf="@id/surnameLbl"
-        app:layout_constraintBaseline_toBaselineOf="@id/surnameLbl"
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/loginView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintHorizontal_weight="2.5"
+        app:layout_constraintTop_toBottomOf="@id/titleHeader"
+        app:label="@string/login_label"
+        app:hint="@string/login_hint"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/passwordView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginView"
+        app:label="@string/password_label"
+        app:hint="@string/password_hint"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/passRepeatView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordView"
+        app:label="@string/pass_repeat_label"
+        app:hint="@string/pass_repeat_hint"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/firstNameView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passRepeatView"
+        app:label="@string/first_name_label"
+        app:hint="@string/name_hint"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/lastNameView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstNameView"
+        app:label="@string/last_name_label"
+        app:hint="@string/name_hint"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/emailView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lastNameView"
+        app:label="@string/email_label"
+        app:hint="@string/email_hint"
+        app:type="@integer/type_email"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/phoneView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailView"
+        app:label="@string/phone_label"
+        app:hint="@string/phone_hint"
+        app:type="@integer/type_phone"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/birthdateView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneView"
+        app:label="@string/birthdate_label"
+        app:hint="@string/birthdate_hint"
+        app:type="@integer/type_date"
+        style="@style/FormItem"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/blueBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reset_button_text"
+        app:layout_constraintBottom_toTopOf="@+id/registerBtn"
+        style="@style/BaseButton.FormButton"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/registerBtn"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/greenBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/BaseButton.FormButton"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
