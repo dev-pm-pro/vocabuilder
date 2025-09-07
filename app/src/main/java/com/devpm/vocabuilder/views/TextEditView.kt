@@ -20,12 +20,14 @@ class TextEditView @JvmOverloads constructor(
     private val binding: ViewTextEditBinding = ViewTextEditBinding.inflate(
         LayoutInflater.from(context), this, true
     )
+    private var nullable: Boolean = false
     init {
         context.withStyledAttributes(attrs, R.styleable.TextEditView, defStyleAttr, 0) {
             setHint(getString(R.styleable.TextEditView_hint) ?: "")
             setLabel(getString(R.styleable.TextEditView_label) ?: "")
             setValue(getString(R.styleable.TextEditView_value) ?: "")
             setType(getInt(R.styleable.TextEditView_type, InputType.TYPE_CLASS_TEXT))
+            nullable = getBoolean(R.styleable.TextEditView_nullable, false)
         }
     }
 
@@ -35,7 +37,10 @@ class TextEditView @JvmOverloads constructor(
     fun clearValue() {
         binding.textBox.text?.clear()
     }
-    fun getValue(): String = binding.textBox.text.toString()
+    fun getValue(): String? {
+        val value = binding.textBox.text.toString()
+        return if (nullable) value.ifBlank { null } else value
+    }
     fun setError(message: String) {
         binding.textBox.error = message
     }
