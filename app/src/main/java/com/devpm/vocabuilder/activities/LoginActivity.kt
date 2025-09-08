@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.ActivityLoginBinding
-import com.devpm.vocabuilder.makeSubstringBold
+import com.devpm.vocabuilder.Utils
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
                 when (result) {
                     is AuthResult.Success -> {
                         val message = getString(R.string.login_success_text, login)
-                        val spannable = makeSubstringBold(message, login)
+                        val spannable = Utils.highlightFragment(message, login)
                         Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
                     }
                     is AuthResult.Error -> {
