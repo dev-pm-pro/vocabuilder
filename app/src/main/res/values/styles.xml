@@ -18,13 +18,9 @@
     <style name="BaseBox">
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
-        <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
-        <item name="fontFamily">sans-serif-condensed</item>
-    </style>
-    <style name="BaseBox.FormBox">
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:typeface">sans</item>
     </style>

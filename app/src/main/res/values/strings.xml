@@ -6,10 +6,19 @@
     <string name="email_hint">example@mail.com</string>
     <string name="email_label" translatable="false">Email</string>
     <string name="first_name_label">First name</string>
+    <string name="keep_logged_text">(keep logged in)</string>
     <string name="last_name_label">Last name</string>
+    <string name="login_box_hint">Your username</string>
+    <string name="login_button_text">Sign In</string>
+    <string name="login_failure_text">Error while user login.\n Try again later</string>
+    <string name="login_header_text">Authenticate</string>
     <string name="login_hint">At least 3 up to 20 chars long</string>
     <string name="login_label">Login</string>
+    <string name="login_success_text">Login successful.\n Welcome, %1$s!</string>
     <string name="name_hint">No more than 30 chars</string>
+    <string name="no_account_text">Don\'t have an account yet?</string>
+    <string name="not_empty_form_text">All fields must be filled</string>
+    <string name="password_box_hint">Your password</string>
     <string name="password_hint">At least 10 chars incl. upper and lowercase letters, numbers and special symbols</string>
     <string name="password_label">Password</string>
     <string name="pass_repeat_hint">Confirm your password</string>
@@ -19,11 +28,18 @@
     <string name="register_button_text">Register</string>
     <string name="register_header_text">Register</string>
     <string name="register_failure_text">Error while user registering.\n Try again later</string>
+    <string name="register_link"><u>Register here</u></string>
     <string name="register_success_text">Registration completed successfully.\n Welcome, %1$s!</string>
+    <string name="remember_label">Remember me</string>
     <string name="reset_button_text">Reset</string>
     <string name="retry_text">Retry</string>
-    <integer name="type_date" translatable="false">20</integer> <!-- InputType.TYPE_CLASS_DATETIME (4) or InputType.TYPE_DATETIME_VARIATION_DATE (16) -->
-    <integer name="type_email" translatable="false">33</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS (32) -->
-    <integer name="type_password" translatable="false">129</integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_PASSWORD (128) -->
+    <string name="user_not_found_text">User not found</string>
+    <string name="wrong_password_text">Wrong password</string>
+    <integer name="type_date" translatable="false">20
+    </integer> <!-- InputType.TYPE_CLASS_DATETIME (4) or InputType.TYPE_DATETIME_VARIATION_DATE (16) -->
+    <integer name="type_email" translatable="false">33
+    </integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS (32) -->
+    <integer name="type_password" translatable="false">129
+    </integer> <!-- InputType.TYPE_CLASS_TEXT (1) or InputType.TYPE_TEXT_VARIATION_PASSWORD (128) -->
     <integer name="type_phone" translatable="false">3</integer> <!-- TYPE_CLASS_PHONE (3) -->
 </resources>

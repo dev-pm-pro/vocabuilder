@@ -9,6 +9,7 @@
         android:id="@+id/label"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
+        android:paddingVertical="5dp"
         android:text="label"
         android:textFontWeight="500"
         android:layout_weight="1"
@@ -20,7 +21,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2.5"
+        android:paddingVertical="7dp"
         android:text="value"
-        style="@style/BaseBox.FormBox"
+        style="@style/BaseBox"
         />
 </LinearLayout>
