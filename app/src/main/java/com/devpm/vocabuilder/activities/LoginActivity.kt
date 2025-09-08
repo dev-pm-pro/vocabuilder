@@ -1,6 +1,8 @@
 package com.devpm.vocabuilder.activities
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,24 +19,45 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+sealed class AuthResult {
+    object Success : AuthResult()
+    data class Error(val message: String) : AuthResult()
+}
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private val app: App by lazy { application as App }
     private val userDao by lazy { app.db.userDao() }
 
-    fun authenticateUser(login: String, password: String, onResult: (Boolean) -> Unit) {
+    private fun authenticateUser(login: String, password: String, onResult: (AuthResult) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            val user = userDao.getUserByLogin(login)
-            val success = user?.password == password
-            withContext(Dispatchers.Main) {
-                onResult(success)
+            try {
+                val user = userDao.getUserByLogin(login)
+                if (user == null) {
+                    withContext(Dispatchers.Main) {
+                        onResult(AuthResult.Error("Пользователь не найден"))
+                    }
+                } else if (user.password != password) {
+                    withContext(Dispatchers.Main) {
+                        onResult(AuthResult.Error("Неверный пароль"))
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        onResult(AuthResult.Success)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("LoginActivity", "DB error", e)
+                withContext(Dispatchers.Main) {
+                    onResult(AuthResult.Error("Ошибка при обращении к базе данных"))
+                }
             }
         }
     }
 
     private fun validateUser(login: String, password: String) : Boolean {
-        return false
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +77,21 @@ class LoginActivity : AppCompatActivity() {
                     show()
                 }
                 return@setOnClickListener // explicit return from lambda
+            }
+
+            authenticateUser(login, password) { result ->
+                when (result) {
+                    is AuthResult.Success -> {
+                        Toast.makeText(this, "Добро пожаловать, $login!", Toast.LENGTH_SHORT).show()
+                    }
+                    is AuthResult.Error -> {
+                        Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).apply {
+                            setBackgroundTint(ContextCompat.getColor(this@LoginActivity, R.color.errorT))
+                            setAnchorView(binding.loginBtn)
+                            show()
+                        }
+                    }
+                }
             }
         }
     }
