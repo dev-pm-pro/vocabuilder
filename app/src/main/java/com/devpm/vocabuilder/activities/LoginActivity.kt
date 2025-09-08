@@ -12,12 +12,26 @@ import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.ActivityLoginBinding
 import com.devpm.vocabuilder.databinding.ActivityRegisterBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private val app: App by lazy { application as App }
     private val userDao by lazy { app.db.userDao() }
+
+    fun authenticateUser(login: String, password: String, onResult: (Boolean) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val user = userDao.getUserByLogin(login)
+            val success = user?.password == password
+            withContext(Dispatchers.Main) {
+                onResult(success)
+            }
+        }
+    }
 
     private fun validateUser(login: String, password: String) : Boolean {
         return false
