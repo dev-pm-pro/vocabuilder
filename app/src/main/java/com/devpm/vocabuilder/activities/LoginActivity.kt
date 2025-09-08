@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.ActivityLoginBinding
@@ -14,6 +15,9 @@ import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+
+    private val app: App by lazy { application as App }
+    private val userDao by lazy { app.db.userDao() }
 
     private fun validateUser(login: String, password: String) : Boolean {
         return false
