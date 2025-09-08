@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Vocabuilder</string>
+    <string name="app_name" translatable="false">VocaBuilder</string>
     <string name="birthdate_hint">DD.MM.YYYY</string>
     <string name="birthdate_label">Birth date</string>
     <string name="check_form_text">Please make sure the form is filled out correctly</string>
