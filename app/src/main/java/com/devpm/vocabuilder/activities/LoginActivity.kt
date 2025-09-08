@@ -12,6 +12,7 @@ import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.ActivityLoginBinding
 import com.devpm.vocabuilder.Utils
 import com.devpm.vocabuilder.data.models.User
+import com.devpm.vocabuilder.services.Validity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,7 +56,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateUser(login: String, password: String) : Boolean {
+    private fun validateCredentials(login: String, password: String) : Boolean {
+        if (!Validity.checkFilled(login)) return false
+        if (!Validity.checkFilled(password)) return false
         return true
     }
 
@@ -69,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginBtn.setOnClickListener {
             val login = binding.loginBox.text.toString()
             val password = binding.passwordBox.text.toString()
-            if (!validateUser(login, password)) {
+            if (!validateCredentials(login, password)) {
                 Snackbar.make(binding.root, R.string.not_empty_form_text, Snackbar.LENGTH_SHORT).apply {
                     setBackgroundTint(ContextCompat.getColor(this@LoginActivity, R.color.warningT))
                     setAnchorView(binding.loginBtn)
