@@ -10,6 +10,7 @@
     <color name="errorT">#DEFF0000</color>
     <color name="gray">#AAdfFFec</color>
     <color name="greenBright">#50B319</color>
+    <color name="hyperlink">#337ab7</color>
     <color name="label">#105070</color>
     <color name="success">#50B319</color>
     <color name="successT">#DE50B319</color>
