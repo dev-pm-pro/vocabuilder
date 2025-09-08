@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity"
+    style="@style/Layout"
+    >
+    <TextView
+        android:id="@+id/titleHeader"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Authenticate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TopHeader"
+        />
+
+    <TextView
+        android:id="@+id/loginLabel"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:text="Login"
+        android:textFontWeight="500"
+        app:layout_constraintTop_toBottomOf="@id/titleHeader"
+        style="@style/BaseLabel"
+        />
+    <EditText
+        android:id="@+id/loginBox"
+        android:hint="Your username"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/loginLabel"
+        style="@style/BaseBox.FormBox"
+        />
+    <TextView
+        android:id="@+id/passwordLabel"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:text="Password"
+        android:textFontWeight="500"
+        app:layout_constraintTop_toBottomOf="@id/loginBox"
+        style="@style/BaseLabel"
+        />
+    <EditText
+        android:id="@+id/passwordBox"
+        android:hint="Your password"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+        style="@style/BaseBox.FormBox"
+        />
+
+    <CheckBox
+        android:id="@+id/keepLoggedInBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-12dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordBox"
+        />
+    <TextView
+        android:id="@+id/rememberMeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remember me"
+        android:textFontWeight="500"
+        app:layout_constraintStart_toEndOf="@id/keepLoggedInBox"
+        app:layout_constraintBaseline_toBaselineOf="@id/keepLoggedInBox"
+        style="@style/BaseLabel"
+        />
+    <TextView
+        android:id="@+id/keepLoggedInLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(keep logged in)"
+        android:textColor="@color/hint"
+        android:paddingStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/rememberMeLabel"
+        app:layout_constraintBaseline_toBaselineOf="@id/keepLoggedInBox"
+        style="@style/BaseLabel"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginBtn"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/greenBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        app:layout_constraintTop_toBottomOf="@id/keepLoggedInBox"
+        style="@style/BaseButton.FormButton"
+        />
+
+    <TextView
+        android:id="@+id/noAccountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account yet?"
+        android:textColor="@color/hint"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginBtn"
+        style="@style/BaseLabel"
+        />
+    <TextView
+        android:id="@+id/registerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register here"
+        android:textColor="@color/hyperlink"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:textFontWeight="600"
+        app:layout_constraintStart_toEndOf="@id/noAccountLabel"
+        app:layout_constraintBaseline_toBaselineOf="@id/noAccountLabel"
+        style="@style/BaseLabel"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
