@@ -11,6 +11,7 @@ import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.ActivityLoginBinding
 import com.devpm.vocabuilder.Utils
+import com.devpm.vocabuilder.data.models.User
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 sealed class AuthResult {
-    data object Success : AuthResult()
+    data class Success(val user: User) : AuthResult()
     data class Error(val message: String) : AuthResult()
 }
 
@@ -42,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
-                        onResult(AuthResult.Success)
+                        onResult(AuthResult.Success(user))
                     }
                 }
             } catch (e: Exception) {
@@ -87,13 +88,16 @@ class LoginActivity : AppCompatActivity() {
                     return@authenticateUser
                 }
 
-                val message = getString(R.string.login_success_text, login)
-                val spannable = Utils.highlightFragment(message, login)
-                Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
+                if (result is AuthResult.Success) {
+                    app.user = result.user
+                    val message = getString(R.string.login_success_text, app.user!!.login)
+                    val spannable = Utils.highlightFragment(message, app.user!!.login)
+                    Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
 
