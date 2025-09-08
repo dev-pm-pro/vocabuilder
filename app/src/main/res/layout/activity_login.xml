@@ -31,9 +31,11 @@
         />
     <EditText
         android:id="@+id/loginBox"
+        android:autofillHints="username"
         android:hint="@string/login_box_hint"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:inputType="textAutoComplete"
         app:layout_constraintTop_toBottomOf="@id/loginLbl"
         style="@style/BaseBox"
         />
@@ -49,7 +51,9 @@
         />
     <EditText
         android:id="@+id/passwordBox"
+        android:autofillHints="password"
         android:hint="@string/password_box_hint"
+        android:inputType="textPassword"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/passwordLbl"
