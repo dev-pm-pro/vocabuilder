@@ -90,6 +90,10 @@ class LoginActivity : AppCompatActivity() {
                 val message = getString(R.string.login_success_text, login)
                 val spannable = Utils.highlightFragment(message, login)
                 Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
 
