@@ -34,11 +34,11 @@ class LoginActivity : AppCompatActivity() {
                 val user = userDao.getUserByLogin(login)
                 if (user == null) {
                     withContext(Dispatchers.Main) {
-                        onResult(AuthResult.Error("Пользователь не найден"))
+                        onResult(AuthResult.Error(getString(R.string.user_not_found_text)))
                     }
                 } else if (user.password != password) {
                     withContext(Dispatchers.Main) {
-                        onResult(AuthResult.Error("Неверный пароль"))
+                        onResult(AuthResult.Error((getString(R.string.wrong_password_text))))
                     }
                 } else {
                     withContext(Dispatchers.Main) {
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("LoginActivity", "DB error", e)
                 withContext(Dispatchers.Main) {
-                    onResult(AuthResult.Error("Ошибка при обращении к базе данных"))
+                    onResult(AuthResult.Error((getString(R.string.login_failure_text))))
                 }
             }
         }

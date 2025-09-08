@@ -10,6 +10,7 @@
     <string name="last_name_label">Last name</string>
     <string name="login_box_hint">Your username</string>
     <string name="login_button_text">Sign In</string>
+    <string name="login_failure_text">Error while user login.\n Try again later</string>
     <string name="login_header_text">Authenticate</string>
     <string name="login_hint">At least 3 up to 20 chars long</string>
     <string name="login_label">Login</string>
@@ -32,6 +33,8 @@
     <string name="remember_label">Remember me</string>
     <string name="reset_button_text">Reset</string>
     <string name="retry_text">Retry</string>
+    <string name="user_not_found_text">User not found</string>
+    <string name="wrong_password_text">Wrong password</string>
     <integer name="type_date" translatable="false">20
     </integer> <!-- InputType.TYPE_CLASS_DATETIME (4) or InputType.TYPE_DATETIME_VARIATION_DATE (16) -->
     <integer name="type_email" translatable="false">33

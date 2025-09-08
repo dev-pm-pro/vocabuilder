@@ -8,6 +8,7 @@
     <string name="last_name_label">Фамилия</string>
     <string name="login_box_hint">Ваше учетное имя</string>
     <string name="login_button_text">Войти</string>
+    <string name="login_failure_text">Ошибка аутентификации пользователя.\n Пожалуйста, попробуйте позднее</string>
     <string name="login_header_text">Аутентификация</string>
     <string name="login_hint">От 3 до 20 знаков</string>
     <string name="login_label">Логин</string>
@@ -29,4 +30,6 @@
     <string name="remember_label">Помнить меня</string>
     <string name="reset_button_text">Сбросить</string>
     <string name="retry_text">Повторить</string>
+    <string name="user_not_found_text">Пользователь не найден</string>
+    <string name="wrong_password_text">Неверный пароль</string>
 </resources>
