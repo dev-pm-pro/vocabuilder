@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.Utils
 import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.ActivityRegisterBinding
 import com.google.android.material.snackbar.Snackbar
@@ -105,16 +106,7 @@ class RegisterActivity : AppCompatActivity() {
                 if (saved) {
                     withContext(Dispatchers.Main) {
                         val message = getString(R.string.register_success_text, user.login)
-                        val spannable = SpannableStringBuilder(message)
-                        val start = message.indexOf(user.login)
-                        val end = start + user.login.length
-
-                        spannable.setSpan(
-                            StyleSpan(Typeface.BOLD),
-                            start,
-                            end,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
+                        val spannable = Utils.highlightFragment(message, user.login)
 
                         Toast.makeText(this@RegisterActivity, spannable, Toast.LENGTH_SHORT).show()
                     }
