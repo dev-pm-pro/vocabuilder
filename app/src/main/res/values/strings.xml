@@ -13,6 +13,7 @@
     <string name="login_header_text">Authenticate</string>
     <string name="login_hint">At least 3 up to 20 chars long</string>
     <string name="login_label">Login</string>
+    <string name="login_success_text">Login successful.\n Welcome, %1$s!</string>
     <string name="name_hint">No more than 30 chars</string>
     <string name="no_account_text">Don\'t have an account yet?</string>
     <string name="not_empty_form_text">All fields must be filled</string>

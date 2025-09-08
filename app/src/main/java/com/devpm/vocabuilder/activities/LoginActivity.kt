@@ -6,13 +6,10 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
-import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.ActivityLoginBinding
-import com.devpm.vocabuilder.databinding.ActivityRegisterBinding
+import com.devpm.vocabuilder.makeSubstringBold
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -82,7 +79,9 @@ class LoginActivity : AppCompatActivity() {
             authenticateUser(login, password) { result ->
                 when (result) {
                     is AuthResult.Success -> {
-                        Toast.makeText(this, "Добро пожаловать, $login!", Toast.LENGTH_SHORT).show()
+                        val message = getString(R.string.login_success_text, login)
+                        val spannable = makeSubstringBold(message, login)
+                        Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
                     }
                     is AuthResult.Error -> {
                         Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).apply {
