@@ -4,10 +4,16 @@
     <string name="check_form_text">Проверьте правильность заполнения формы</string>
     <string name="email_hint">example@mail.ru</string>
     <string name="first_name_label">Имя</string>
+    <string name="keep_logged_text">(оставаться в системе)</string>
     <string name="last_name_label">Фамилия</string>
+    <string name="login_box_hint">Ваше учетное имя</string>
+    <string name="login_button_text">Войти</string>
+    <string name="login_header_text">Аутентификация</string>
     <string name="login_hint">От 3 до 20 знаков</string>
     <string name="login_label">Логин</string>
     <string name="name_hint">Не более 30 знаков</string>
+    <string name="no_account_text">Ещё нет аккаунта?</string>
+    <string name="password_box_hint">Ваш пароль</string>
     <string name="password_label">Пароль</string>
     <string name="password_hint">Не менее 10 знаков, включая буквы в обоих регистрах, цифры и спецсимволы</string>
     <string name="pass_repeat_hint">Подтверждение пароля</string>
@@ -16,7 +22,9 @@
     <string name="register_button_text">Регистрироваться</string>
     <string name="register_failure_text">Ошибка регистрации пользователя.\n Пожалуйста, попробуйте позднее</string>
     <string name="register_header_text">Регистрация</string>
+    <string name="register_link"><u>Зарегистрируйтесь</u></string>
     <string name="register_success_text">Регистрация прошла успешно.\n Добро пожаловать, %1$s!</string>
+    <string name="remember_label">Помнить меня</string>
     <string name="reset_button_text">Сбросить</string>
     <string name="retry_text">Повторить</string>
 </resources>
