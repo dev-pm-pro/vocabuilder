@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 sealed class AuthResult {
-    object Success : AuthResult()
+    data object Success : AuthResult()
     data class Error(val message: String) : AuthResult()
 }
 
@@ -78,20 +78,18 @@ class LoginActivity : AppCompatActivity() {
             }
 
             authenticateUser(login, password) { result ->
-                when (result) {
-                    is AuthResult.Success -> {
-                        val message = getString(R.string.login_success_text, login)
-                        val spannable = Utils.highlightFragment(message, login)
-                        Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
+                if (result is AuthResult.Error) {
+                    Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).apply {
+                        setBackgroundTint(ContextCompat.getColor(this@LoginActivity, R.color.errorT))
+                        setAnchorView(binding.loginBtn)
+                        show()
                     }
-                    is AuthResult.Error -> {
-                        Snackbar.make(binding.root, result.message, Snackbar.LENGTH_LONG).apply {
-                            setBackgroundTint(ContextCompat.getColor(this@LoginActivity, R.color.errorT))
-                            setAnchorView(binding.loginBtn)
-                            show()
-                        }
-                    }
+                    return@authenticateUser
                 }
+
+                val message = getString(R.string.login_success_text, login)
+                val spannable = Utils.highlightFragment(message, login)
+                Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
             }
         }
 
