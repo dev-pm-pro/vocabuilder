@@ -21,17 +21,19 @@ Vocabuilder helps language learners quickly expand their vocabulary and retain k
 
 ### Key Features
 The app has the following key features:
-- creating flashcards with words, translations, examples, and pronunciation;
+- [ ] creating flashcards with words, translations, examples, and pronunciation;
 
-- importing and exporting word sets;
+- [ ] importing and exporting word sets;
 
-- spaced repetition algorithm with dynamic interval adjustment;
+- [ ] spaced repetition algorithm with dynamic interval adjustment;
 
-- user-friendly interface for flashcard learning;
+- [ ] user-friendly interface for flashcard learning;
 
-- progress statistics and review history;
+- [ ] progress statistics and review history;
 
-- support for multiple interface languages and word sets.
+- [x] support for multiple interface languages and word sets;
+
+- [x] support for light/dark (day/night) themes.
 
 ### Project information
 This section provides the general information about the application, used tech stack and the team.
