@@ -17,6 +17,10 @@
     <string name="login_label">Login</string>
     <string name="login_link"><u>Sign in here</u></string>
     <string name="login_success_text">Login successful.\n Welcome, %1$s!</string>
+    <string name="menu_profile_label">Profile</string>
+    <string name="menu_settings_label">Settings</string>
+    <string name="menu_stats_label">Statistics</string>
+    <string name="menu_decks_label">Decks</string>
     <string name="name_hint">No more than 30 chars</string>
     <string name="no_account_text">Don\'t have an account yet?</string>
     <string name="not_empty_form_text">All fields must be filled</string>

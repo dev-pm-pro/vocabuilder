@@ -15,6 +15,10 @@
     <string name="login_label">Логин</string>
     <string name="login_link"><u>Выполните вход</u></string>
     <string name="login_success_text">Вход выполнен успешно.\n Добро пожаловать, %1$s!</string>
+    <string name="menu_profile_label">Профиль</string>
+    <string name="menu_settings_label">Настройки</string>
+    <string name="menu_stats_label">Статистика</string>
+    <string name="menu_decks_label">Наборы</string>
     <string name="name_hint">Не более 30 знаков</string>
     <string name="no_account_text">Ещё нет аккаунта?</string>
     <string name="not_empty_form_text">Все поля должны быть заполнены</string>
