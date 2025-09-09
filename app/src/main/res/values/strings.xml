@@ -39,6 +39,7 @@
     <string name="remember_label">Remember me</string>
     <string name="reset_button_text">Reset</string>
     <string name="retry_text">Retry</string>
+    <string name="toggle_pwd_desc">Toggle visibility</string>
     <string name="user_not_found_text">User not found</string>
     <string name="wrong_password_text">Wrong password</string>
     <integer name="type_date" translatable="false">20

@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/loginView"
         app:label="@string/password_label"
         app:hint="@string/password_hint"
+        app:toggleable="true"
         app:type="@integer/type_password"
         style="@style/FormItem"
         />
@@ -44,6 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/passwordView"
         app:label="@string/pass_repeat_label"
         app:hint="@string/pass_repeat_hint"
+        app:toggleable="true"
         app:type="@integer/type_password"
         style="@style/FormItem"
         />

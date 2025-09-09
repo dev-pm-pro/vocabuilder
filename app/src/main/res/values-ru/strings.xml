@@ -36,6 +36,7 @@
     <string name="remember_label">Помнить меня</string>
     <string name="reset_button_text">Сбросить</string>
     <string name="retry_text">Повторить</string>
+    <string name="toggle_pwd_desc">Переключить видимость</string>
     <string name="user_not_found_text">Пользователь не найден</string>
     <string name="wrong_password_text">Неверный пароль</string>
 </resources>

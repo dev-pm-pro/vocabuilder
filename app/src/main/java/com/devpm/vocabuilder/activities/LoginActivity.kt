@@ -1,7 +1,9 @@
 package com.devpm.vocabuilder.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,6 +31,8 @@ class LoginActivity : AppCompatActivity() {
 
     private val app: App by lazy { application as App }
     private val userDao by lazy { app.db.userDao() }
+
+    var isPwdOn = false
 
     private fun authenticateUser(login: String, password: String, onResult: (AuthResult) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -102,6 +106,21 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
             }
+        }
+
+        binding.pwdVisToggle.setOnClickListener {
+            if (isPwdOn) {
+                binding.passwordBox.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.pwdVisToggle.setImageResource(R.drawable.ic_eye_solid)
+            }
+            else {
+                binding.passwordBox.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.pwdVisToggle.setImageResource(R.drawable.ic_eye_slash)
+            }
+
+            binding.passwordBox.typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL)
+            binding.passwordBox.setSelection( binding.passwordBox.text.length)
+            isPwdOn = !isPwdOn
         }
 
         binding.registerLabel.setOnClickListener {
