@@ -48,17 +48,17 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/fragmentContainer"
+        android:id="@+id/mainContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/gray"
         app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintBottom_toTopOf="@id/navigationBar"
+        app:layout_constraintBottom_toTopOf="@id/navBar"
         />
 
     <LinearLayout
-        android:id="@+id/navigationBar"
+        android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
