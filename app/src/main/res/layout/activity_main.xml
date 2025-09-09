@@ -32,13 +32,11 @@
             android:id="@+id/emailTxt"
             android:layout_gravity="start"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:paddingStart="10dp"
             android:text="user@email.com"
-
             android:textSize="15sp"
-
             />
 
         <ImageView
@@ -84,13 +82,13 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_user"
-                android:contentDescription="Профиль"
+                android:contentDescription="@string/menu_profile_label"
                 app:tint="@color/magentaDark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Профиль"
+                android:text="@string/menu_profile_label"
                 android:textSize="15sp"
                 android:textColor="@color/magentaDark"
                 android:textStyle="bold"
@@ -113,14 +111,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_gear"
-                android:contentDescription="Настройки"
+                android:contentDescription="@string/menu_settings_label"
                 app:tint="@color/cyanDarker"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Настройки"
+                android:text="@string/menu_settings_label"
                 android:textSize="15sp"
                 android:textColor="@color/cyanDarker"
                 android:textStyle="normal"
@@ -143,14 +141,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_chart"
-                android:contentDescription="Статистика"
+                android:contentDescription="@string/menu_stats_label"
                 app:tint="@color/cyanDarker"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Статистика"
+                android:text="@string/menu_stats_label"
                 android:textSize="15sp"
                 android:textColor="@color/cyanDarker"
                 android:textStyle="normal"
@@ -173,14 +171,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_list"
-                android:contentDescription="Наборы"
+                android:contentDescription="@string/menu_decks_label"
                 app:tint="@color/cyanDarker"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Наборы"
+                android:text="@string/menu_decks_label"
                 android:textSize="15sp"
                 android:textColor="@color/cyanDarker"
                 android:textStyle="normal"
