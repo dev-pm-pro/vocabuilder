@@ -4,6 +4,7 @@
     <string name="check_form_text">Проверьте правильность заполнения формы</string>
     <string name="email_hint">example@mail.ru</string>
     <string name="first_name_label">Имя</string>
+    <string name="have_account_text">Уже есть учетная запись?</string>
     <string name="keep_logged_text">(оставаться в системе)</string>
     <string name="last_name_label">Фамилия</string>
     <string name="login_box_hint">Ваше учетное имя</string>
@@ -12,6 +13,7 @@
     <string name="login_header_text">Аутентификация</string>
     <string name="login_hint">От 3 до 20 знаков</string>
     <string name="login_label">Логин</string>
+    <string name="login_link"><u>Выполните вход</u></string>
     <string name="login_success_text">Вход выполнен успешно.\n Добро пожаловать, %1$s!</string>
     <string name="name_hint">Не более 30 знаков</string>
     <string name="no_account_text">Ещё нет аккаунта?</string>

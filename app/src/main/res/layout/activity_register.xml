@@ -101,6 +101,31 @@
         style="@style/FormItem"
         />
 
+    <TextView
+        android:id="@+id/haveAccountLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/have_account_text"
+        android:textColor="@color/hint"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/resetBtn"
+        style="@style/BaseLabel"
+        />
+    <TextView
+        android:id="@+id/loginLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_link"
+        android:textColor="@color/hyperlink"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:textFontWeight="600"
+        app:layout_constraintStart_toEndOf="@id/haveAccountLbl"
+        app:layout_constraintBaseline_toBaselineOf="@id/haveAccountLbl"
+        style="@style/BaseLabel"
+        />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/resetBtn"
         android:background="@drawable/button_bg"

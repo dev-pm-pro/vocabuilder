@@ -5,6 +5,7 @@
     <string name="check_form_text">Please make sure the form is filled out correctly</string>
     <string name="email_hint">example@mail.com</string>
     <string name="email_label" translatable="false">Email</string>
+    <string name="have_account_text">Already have an account?</string>
     <string name="first_name_label">First name</string>
     <string name="keep_logged_text">(keep logged in)</string>
     <string name="last_name_label">Last name</string>
@@ -14,6 +15,7 @@
     <string name="login_header_text">Authenticate</string>
     <string name="login_hint">At least 3 up to 20 chars long</string>
     <string name="login_label">Login</string>
+    <string name="login_link"><u>Sign in here</u></string>
     <string name="login_success_text">Login successful.\n Welcome, %1$s!</string>
     <string name="name_hint">No more than 30 chars</string>
     <string name="no_account_text">Don\'t have an account yet?</string>
