@@ -1,5 +1,6 @@
 package com.devpm.vocabuilder.activities
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -112,6 +113,12 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        binding.loginLabel.setOnClickListener {
+            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         binding.resetBtn.setOnClickListener {
