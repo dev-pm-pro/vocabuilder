@@ -6,8 +6,13 @@ import android.renderscript.ScriptGroup.Input
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
+import android.view.Gravity.END
+import android.view.Gravity.TOP
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.devpm.vocabuilder.databinding.ViewTextEditBinding
 import com.devpm.vocabuilder.R
 import androidx.core.content.withStyledAttributes
@@ -21,6 +26,9 @@ class TextEditView @JvmOverloads constructor(
         LayoutInflater.from(context), this, true
     )
     private var nullable: Boolean = false
+    private var toggleable: Boolean = false
+    private var isPwdOn = false
+
     init {
         context.withStyledAttributes(attrs, R.styleable.TextEditView, defStyleAttr, 0) {
             setHint(getString(R.styleable.TextEditView_hint) ?: "")
@@ -28,6 +36,13 @@ class TextEditView @JvmOverloads constructor(
             setValue(getString(R.styleable.TextEditView_value) ?: "")
             setType(getInt(R.styleable.TextEditView_type, InputType.TYPE_CLASS_TEXT))
             nullable = getBoolean(R.styleable.TextEditView_nullable, false)
+            toggleable = getBoolean(R.styleable.TextEditView_toggleable, false)
+        }
+        if (toggleable) {
+            binding.pwdVisToggle.visibility = View.VISIBLE
+            binding.pwdVisToggle.setOnClickListener {
+                togglePasswordVisibility()
+            }
         }
     }
 
@@ -73,5 +88,20 @@ class TextEditView @JvmOverloads constructor(
     }
     fun setValue(text: String) {
         binding.textBox.setText(text)
+    }
+
+    private fun togglePasswordVisibility() {
+        isPwdOn = !isPwdOn
+        if (isPwdOn) {
+            binding.textBox.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            binding.pwdVisToggle.setImageResource(R.drawable.ic_eye_slash)
+            binding.textBox.transformationMethod = null
+        } else {
+            binding.textBox.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.pwdVisToggle.setImageResource(R.drawable.ic_eye_solid)
+            binding.textBox.transformationMethod = PasswordTransformationMethod.getInstance()
+        }
+        binding.textBox.typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL)
+        binding.textBox.setSelection(binding.textBox.text?.length ?: 0)
     }
 }
