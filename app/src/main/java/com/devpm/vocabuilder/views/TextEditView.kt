@@ -26,6 +26,7 @@ class TextEditView @JvmOverloads constructor(
         LayoutInflater.from(context), this, true
     )
     private var nullable: Boolean = false
+    private var readonly: Boolean = false
     private var toggleable: Boolean = false
     private var isPwdOn = false
 
@@ -36,7 +37,11 @@ class TextEditView @JvmOverloads constructor(
             setValue(getString(R.styleable.TextEditView_value) ?: "")
             setType(getInt(R.styleable.TextEditView_type, InputType.TYPE_CLASS_TEXT))
             nullable = getBoolean(R.styleable.TextEditView_nullable, false)
+            readonly = getBoolean(R.styleable.TextEditView_readonly, false)
             toggleable = getBoolean(R.styleable.TextEditView_toggleable, false)
+        }
+        if (readonly) {
+            setReadonly()
         }
         if (toggleable) {
             binding.pwdVisToggle.visibility = View.VISIBLE
@@ -70,6 +75,15 @@ class TextEditView @JvmOverloads constructor(
     }
     fun setLabel(text: String) {
         binding.label.text = text
+    }
+    fun setReadonly() {
+        binding.textBox.isClickable = false
+        binding.textBox.isCursorVisible = false
+        binding.textBox.isEnabled = false
+        binding.textBox.isFocusable = false
+        binding.textBox.isFocusableInTouchMode = false
+        binding.textBox.inputType = InputType.TYPE_NULL
+        binding.textBox.keyListener = null
     }
     fun setType(type: Int) {
         binding.textBox.inputType = type
