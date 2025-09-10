@@ -2,7 +2,10 @@
     <string name="app_name" translatable="false">VocaBuilder</string>
     <string name="birthdate_hint">DD.MM.YYYY</string>
     <string name="birthdate_label">Birth date</string>
+    <string name="change_password_text">Change password</string>
     <string name="check_form_text">Please make sure the form is filled out correctly</string>
+    <string name="current_pwd_hint">Your current password</string>
+    <string name="current_pwd_label">Current password</string>
     <string name="email_hint">example@mail.com</string>
     <string name="email_label" translatable="false">Email</string>
     <string name="have_account_text">Already have an account?</string>
@@ -23,6 +26,7 @@
     <string name="menu_stats_label">Statistics</string>
     <string name="menu_decks_label">Decks</string>
     <string name="name_hint">No more than 30 chars</string>
+    <string name="new_pwd_label">New password</string>
     <string name="no_account_text">Don\'t have an account yet?</string>
     <string name="not_empty_form_text">All fields must be filled</string>
     <string name="password_box_hint">Your password</string>
@@ -39,6 +43,7 @@
     <string name="register_success_text">Registration completed successfully.\n Please, log in\n with your credentials</string>
     <string name="remember_label">Remember me</string>
     <string name="registered_label">Register date</string>
+    <string name="repeat_pwd_label">Repeat password</string>
     <string name="reset_button_text">Reset</string>
     <string name="retry_text">Retry</string>
     <string name="toggle_pwd_desc">Toggle visibility</string>
