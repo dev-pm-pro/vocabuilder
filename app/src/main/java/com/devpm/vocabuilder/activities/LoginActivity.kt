@@ -1,5 +1,6 @@
 package com.devpm.vocabuilder.activities
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -60,6 +61,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleStayLogged(uid: Int) {
+        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        prefs.edit().apply {
+            if (binding.keepLoggedInBox.isChecked) putInt("uid", uid)
+            else remove("uid")
+            apply()
+        }
+    }
+
     private fun validateCredentials(login: String, password: String) : Boolean {
         if (!Validity.checkFilled(login)) return false
         if (!Validity.checkFilled(password)) return false
@@ -97,6 +107,8 @@ class LoginActivity : AppCompatActivity() {
 
                 if (result is AuthResult.Success) {
                     app.user = result.user
+                    handleStayLogged(result.user.id)
+
                     val message = getString(R.string.login_success_text, app.user!!.login)
                     val spannable = Utils.highlightFragment(message, app.user!!.login)
                     Toast.makeText(this, spannable, Toast.LENGTH_SHORT).show()
