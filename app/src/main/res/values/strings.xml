@@ -16,7 +16,7 @@
     <string name="login_hint">At least 3 up to 20 chars long</string>
     <string name="login_label">Login</string>
     <string name="login_link"><u>Sign in here</u></string>
-    <string name="login_success_text">Login successful.\n Welcome, %1$s!</string>
+    <string name="login_success_text">Welcome, %1$s!</string>
     <string name="logout_text">Log out</string>
     <string name="menu_profile_label">Profile</string>
     <string name="menu_settings_label">Settings</string>
@@ -36,7 +36,7 @@
     <string name="register_header_text">Register</string>
     <string name="register_failure_text">Error while user registering.\n Try again later</string>
     <string name="register_link"><u>Register here</u></string>
-    <string name="register_success_text">Registration completed successfully.\n Welcome, %1$s!</string>
+    <string name="register_success_text">Registration completed successfully.\n Please, log in\n with your credentials</string>
     <string name="remember_label">Remember me</string>
     <string name="registered_label">Register date</string>
     <string name="reset_button_text">Reset</string>

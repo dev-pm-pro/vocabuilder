@@ -33,7 +33,7 @@
     <string name="register_failure_text">Ошибка регистрации пользователя.\n Пожалуйста, попробуйте позднее</string>
     <string name="register_header_text">Регистрация</string>
     <string name="register_link"><u>Зарегистрируйтесь</u></string>
-    <string name="register_success_text">Регистрация прошла успешно.\n Добро пожаловать, %1$s!</string>
+    <string name="register_success_text">Регистрация прошла успешно.\n Войдите со своими учетными данными</string>
     <string name="remember_label">Помнить меня</string>
     <string name="registered_label">Дата регистрации</string>
     <string name="reset_button_text">Сбросить</string>

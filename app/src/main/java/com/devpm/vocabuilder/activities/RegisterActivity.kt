@@ -106,10 +106,11 @@ class RegisterActivity : AppCompatActivity() {
                 val saved = trySaveUser(user)
                 if (saved) {
                     withContext(Dispatchers.Main) {
-                        val message = getString(R.string.register_success_text, user.login)
-                        val spannable = Utils.highlightFragment(message, user.login)
+                        Toast.makeText(this@RegisterActivity, R.string.register_success_text, Toast.LENGTH_LONG).show()
 
-                        Toast.makeText(this@RegisterActivity, spannable, Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                 }
             }
