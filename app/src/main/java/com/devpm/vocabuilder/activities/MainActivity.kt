@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
             withContext(Dispatchers.Main) {
                 app.user = user
-                initFragments()
+                initialize()
             }
         }
     }
@@ -98,6 +98,16 @@ class MainActivity : AppCompatActivity() {
             resetActiveState()
             setActiveState("stats")
         }
+    }
+
+    private fun initialize() {
+        initFragments()
+        populateTopBar()
+    }
+
+    private fun populateTopBar() {
+        binding.userNameTxt.text = app.user?.login
+        binding.emailTxt.text = app.user?.email
     }
 
     private fun redirectToAuth() {
