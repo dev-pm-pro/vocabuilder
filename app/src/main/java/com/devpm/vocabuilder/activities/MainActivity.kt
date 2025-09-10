@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     // Application object
     private val app: App by lazy { application as App }
+    // App Preferences
+    private val prefs by lazy { getSharedPreferences("app_prefs", Context.MODE_PRIVATE) }
     // Fragment objects
     private val decks = DecksFragment()
     private val profile = ProfileFragment()
@@ -48,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             return;
         }
 
-        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val uid = prefs.getInt("uid", -1)
         Log.d("MainActivity", uid.toString())
 
@@ -140,7 +141,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.logoutImg.setOnClickListener {
             app.user = null
-            val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
             prefs.edit { remove("uid") }
             redirectToAuth()
         }
