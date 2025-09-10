@@ -26,11 +26,11 @@ class MainActivity : AppCompatActivity() {
 
     // Элементы навигации
     private val ctrls by lazy {
-        listOf(
-            Pair(binding.decksImg, binding.decksLbl),
-            Pair(binding.profileImg, binding.profileLbl),
-            Pair(binding.settingsImg, binding.settingsLbl),
-            Pair(binding.statsImg, binding.statsLbl)
+        mapOf(
+            "decks" to Pair(binding.decksImg, binding.decksLbl),
+            "profile" to Pair(binding.profileImg, binding.profileLbl),
+            "settings" to Pair(binding.settingsImg, binding.settingsLbl),
+            "stats" to Pair(binding.statsImg, binding.statsLbl)
         )
     }
 
@@ -44,17 +44,18 @@ class MainActivity : AppCompatActivity() {
     // Сброс цвета всех кнопок/иконок в неактивный цвет
     private fun resetActiveState() {
         val inactiveColor = ContextCompat.getColor(this, R.color.cyanDarker)
-        ctrls.forEach {
-            it.first.setColorFilter(inactiveColor)
-            it.second.setTextColor(inactiveColor)
+        ctrls.values.forEach { (img, lbl) ->
+            img.setColorFilter(inactiveColor)
+            lbl.setTextColor(inactiveColor)
         }
     }
-
     // Установка активного цвета
-    private fun setActiveState(ctl: Pair<ImageView, TextView>) {
+    private fun setActiveState(key: String) {
         val activeColor = ContextCompat.getColor(this, R.color.magentaDark)
-        ctl.first.setColorFilter(activeColor)
-        ctl.second.setTextColor(activeColor)
+        ctrls[key]?.let { (img, lbl) ->
+            img.setColorFilter(activeColor)
+            lbl.setTextColor(activeColor)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,22 +74,22 @@ class MainActivity : AppCompatActivity() {
         binding.decksBtn.setOnClickListener {
             replaceFragment(decks)
             resetActiveState()
-            setActiveState(ctrls[0])
+            setActiveState("decks")
         }
         binding.profileBtn.setOnClickListener {
             replaceFragment(profile)
             resetActiveState()
-            setActiveState(ctrls[1])
+            setActiveState("profile")
         }
         binding.settingsBtn.setOnClickListener {
             replaceFragment(settings)
             resetActiveState()
-            setActiveState(ctrls[2])
+            setActiveState("settings")
         }
         binding.statsBtn.setOnClickListener {
             replaceFragment(stats)
             resetActiveState()
-            setActiveState(ctrls[3])
+            setActiveState("stats")
         }
 
         val intent = Intent(this@MainActivity, LoginActivity::class.java)
