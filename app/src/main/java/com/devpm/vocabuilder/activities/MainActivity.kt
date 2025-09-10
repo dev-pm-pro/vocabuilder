@@ -66,12 +66,12 @@ class MainActivity : AppCompatActivity() {
             }
             withContext(Dispatchers.Main) {
                 app.user = user
-                initialize()
+                initFragments()
             }
         }
     }
 
-    private fun initialize() {
+    private fun initFragments() {
         // Set initial fragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContent, profile)
