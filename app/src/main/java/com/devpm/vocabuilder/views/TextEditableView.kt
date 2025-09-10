@@ -78,7 +78,6 @@ class TextEditableView @JvmOverloads constructor(
         binding.textVal.visibility = View.VISIBLE
     }
     fun setToggleable() {
-        binding.pwdVisToggle.visibility = View.VISIBLE
         binding.pwdVisToggle.setOnClickListener {
             togglePasswordVisibility()
         }
@@ -120,6 +119,7 @@ class TextEditableView @JvmOverloads constructor(
 
     private fun toggleEditMode() {
         controls.forEach { it.toggleVisibility() }
+        if (toggleable) binding.pwdVisToggle.toggleVisibility()
     }
 
     private fun togglePasswordVisibility() {
