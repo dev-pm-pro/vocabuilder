@@ -24,6 +24,10 @@ class TextEditableView @JvmOverloads constructor(
     private var toggleable: Boolean = false
     private var isPwdOn = false
 
+    private val controls = listOf(
+        binding.textVal, binding.textBox, binding.editImg, binding.checkImg, binding.cancelImg
+    )
+
     init {
         context.withStyledAttributes(attrs, R.styleable.TextEditView, defStyleAttr, 0) {
             setHint(getString(R.styleable.TextEditView_hint) ?: "")
@@ -39,6 +43,8 @@ class TextEditableView @JvmOverloads constructor(
                 togglePasswordVisibility()
             }
         }
+
+        setupListeners()
     }
 
     fun clearError() {
@@ -85,6 +91,22 @@ class TextEditableView @JvmOverloads constructor(
         binding.textBox.setText(text)
     }
 
+    private fun setupListeners() {
+        binding.cancelImg.setOnClickListener {
+            toggleEditMode()
+        }
+        binding.checkImg.setOnClickListener {
+            toggleEditMode()
+        }
+        binding.editImg.setOnClickListener {
+            toggleEditMode()
+        }
+    }
+
+    private fun toggleEditMode() {
+        controls.forEach { it.toggleVisibility() }
+    }
+
     private fun togglePasswordVisibility() {
         isPwdOn = !isPwdOn
         if (isPwdOn) {
@@ -98,5 +120,9 @@ class TextEditableView @JvmOverloads constructor(
         }
         binding.textBox.typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL)
         binding.textBox.setSelection(binding.textBox.text?.length ?: 0)
+    }
+
+    private fun View.toggleVisibility() {
+        visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
     }
 }
