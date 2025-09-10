@@ -24,10 +24,12 @@
         android:layout_weight="2.5"
         >
         <TextView
+            android:id="@+id/textVal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="value"
+            android:paddingVertical="7dp"
             android:textSize="20sp"
             android:fontFamily="sans-serif-condensed"
             />
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingVertical="7dp"
+            android:visibility="gone"
             android:text="value"
             style="@style/BaseBox"
             />
@@ -51,6 +54,38 @@
             android:src="@drawable/ic_eye_solid"
             android:visibility="gone"
             app:tint="@color/blue"
+            />
+        <ImageView
+            android:id="@+id/editImg"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/toggle_pwd_desc"
+            android:src="@drawable/ic_edit"
+            app:tint="@color/blue"
+            />
+        <ImageView
+            android:id="@+id/cancelImg"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/toggle_pwd_desc"
+            android:src="@drawable/ic_xmark"
+            android:visibility="gone"
+            app:tint="@color/red"
+            />
+        <ImageView
+            android:id="@+id/checkImg"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|top"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/toggle_pwd_desc"
+            android:src="@drawable/ic_check"
+            android:visibility="gone"
+            app:tint="@color/greenBright"
             />
     </LinearLayout>
 
