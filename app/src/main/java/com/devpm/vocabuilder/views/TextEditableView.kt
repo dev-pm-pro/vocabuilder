@@ -98,7 +98,7 @@ class TextEditableView @JvmOverloads constructor(
             binding.textBox.transformationMethod = null
         }
     }
-    fun setValue(text: String) {
+    fun setValue(text: String?) {
         binding.textBox.setText(text)
         binding.textVal.text = text
     }
