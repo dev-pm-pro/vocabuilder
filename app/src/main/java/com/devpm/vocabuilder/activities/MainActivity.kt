@@ -2,8 +2,6 @@ package com.devpm.vocabuilder.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,17 +15,17 @@ import com.devpm.vocabuilder.fragments.SettingsFragment
 import com.devpm.vocabuilder.fragments.StatsFragment
 
 class MainActivity : AppCompatActivity() {
-    // объявление ViewBinding
+    // Declare ViewBinding
     private lateinit var binding: ActivityMainBinding
-    // application object
+    // Application object
     private val app: App by lazy { application as App }
-    // Объекты фрагментов
+    // Fragment objects
     private val decks = DecksFragment()
     private val profile = ProfileFragment()
     private val settings = SettingsFragment()
     private val stats = StatsFragment()
 
-    // Элементы навигации
+    // Navigation elements
     private val ctrls by lazy {
         mapOf(
             "decks" to Pair(binding.decksImg, binding.decksLbl),
@@ -37,14 +35,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    // Функция замены фрагментов
+    // Fragments replacement function
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContent, fragment)
             .commit()
     }
 
-    // Сброс цвета всех кнопок/иконок в неактивный цвет
+    // Reset color to inactive state for all icons and labels
     private fun resetActiveState() {
         val inactiveColor = ContextCompat.getColor(this, R.color.cyanDarker)
         ctrls.values.forEach { (img, lbl) ->
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             lbl.setTextColor(inactiveColor)
         }
     }
-    // Установка активного цвета
+    // Set active color
     private fun setActiveState(key: String) {
         val activeColor = ContextCompat.getColor(this, R.color.magentaDark)
         ctrls[key]?.let { (img, lbl) ->
@@ -64,16 +62,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        // Создание объекта из разметки
+        // Create object from layout
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Устанавливаем начальный фрагмент
+        // Set initial fragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainContent, profile)
             .commit()
 
-        // Обработчики нажатий
+        // Click handlers
         binding.decksBtn.setOnClickListener {
             replaceFragment(decks)
             resetActiveState()
