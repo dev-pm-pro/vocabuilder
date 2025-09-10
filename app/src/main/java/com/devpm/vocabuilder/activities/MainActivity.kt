@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.ActivityMainBinding
 import com.devpm.vocabuilder.fragments.DecksFragment
@@ -18,6 +19,8 @@ import com.devpm.vocabuilder.fragments.StatsFragment
 class MainActivity : AppCompatActivity() {
     // объявление ViewBinding
     private lateinit var binding: ActivityMainBinding
+    // application object
+    private val app: App by lazy { application as App }
     // Объекты фрагментов
     private val decks = DecksFragment()
     private val profile = ProfileFragment()
@@ -92,8 +95,11 @@ class MainActivity : AppCompatActivity() {
             setActiveState("stats")
         }
 
-        val intent = Intent(this@MainActivity, LoginActivity::class.java)
-        //startActivity(intent)
-        //finish()
+        if (app.user == null) {
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
     }
 }
