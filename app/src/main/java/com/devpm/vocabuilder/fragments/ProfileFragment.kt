@@ -1,11 +1,14 @@
 package com.devpm.vocabuilder.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.FragmentProfileBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,6 +30,17 @@ class ProfileFragment : Fragment() {
         FragmentProfileBinding.inflate(layoutInflater)
     }
 
+    private fun populateProfile(user: User) {
+        binding.loginView.setValue(user.login)
+        binding.passwordView.setValue(user.password)
+        binding.passRepeatView.setValue(user.password)
+        binding.firstNameView.setValue(user.firstName)
+        binding.lastNameView.setValue(user.lastName)
+        binding.emailView.setValue(user.email)
+        binding.birthdateView.setValue(user.birthDate)
+        binding.phoneView.setValue(user.phone)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,6 +55,12 @@ class ProfileFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val app = (requireActivity().application as App)
+        app.user?.let { populateProfile(it) }
     }
 
     companion object {
