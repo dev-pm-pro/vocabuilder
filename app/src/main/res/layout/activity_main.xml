@@ -28,7 +28,6 @@
             android:textSize="15sp"
             android:textColor="@color/cyanDarker"
             />
-
         <TextView
             android:id="@+id/emailTxt"
             android:layout_gravity="start"
@@ -39,7 +38,6 @@
             android:text="user@email.com"
             android:textSize="15sp"
             />
-
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
