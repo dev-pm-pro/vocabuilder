@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.ActivityMainBinding
+import com.devpm.vocabuilder.fragments.DecksFragment
 import com.devpm.vocabuilder.fragments.ProfileFragment
 import com.devpm.vocabuilder.fragments.SettingsFragment
 import com.devpm.vocabuilder.fragments.StatsFragment
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     // объявление ViewBinding
     private lateinit var binding: ActivityMainBinding
     // Объекты фрагментов
+    private val decks = DecksFragment()
     private val profile = ProfileFragment()
     private val settings = SettingsFragment()
     private val stats = StatsFragment()
@@ -39,6 +41,9 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         // Обработчики нажатий
+        binding.decksBtn.setOnClickListener {
+            replaceFragment(decks)
+        }
         binding.profileBtn.setOnClickListener {
             replaceFragment(profile)
         }
