@@ -14,22 +14,6 @@
         style="@style/FormItem"
         />
     <com.devpm.vocabuilder.views.TextEditableView
-        android:id="@+id/passwordView"
-        app:label="@string/password_label"
-        app:hint="@string/password_hint"
-        app:toggleable="true"
-        app:type="@integer/type_password"
-        style="@style/FormItem"
-        />
-    <com.devpm.vocabuilder.views.TextEditableView
-        android:id="@+id/passRepeatView"
-        app:label="@string/pass_repeat_label"
-        app:hint="@string/pass_repeat_hint"
-        app:toggleable="true"
-        app:type="@integer/type_password"
-        style="@style/FormItem"
-        />
-    <com.devpm.vocabuilder.views.TextEditableView
         android:id="@+id/firstNameView"
         app:label="@string/first_name_label"
         app:hint="@string/name_hint"
@@ -95,5 +79,50 @@
             android:fontFamily="sans-serif-condensed"
             />
     </LinearLayout>
+
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/passwordView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginView"
+        app:label="@string/current_pwd_label"
+        app:hint="@string/current_pwd_hint"
+        app:toggleable="true"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/newPwdView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginView"
+        app:label="@string/new_pwd_label"
+        app:hint="@string/password_hint"
+        app:toggleable="true"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/pwdRepeatView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/passwordView"
+        app:label="@string/repeat_pwd_label"
+        app:hint="@string/pass_repeat_hint"
+        app:toggleable="true"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/updatePwdBtn"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/greenBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_password_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/BaseButton.FormButton"
+        />
 
 </LinearLayout>

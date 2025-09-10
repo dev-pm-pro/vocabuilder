@@ -32,8 +32,6 @@ class ProfileFragment : Fragment() {
 
     private fun populateProfile(user: User) {
         binding.loginView.setValue(user.login)
-        binding.passwordView.setValue(user.password)
-        binding.passRepeatView.setValue(user.password)
         binding.firstNameView.setValue(user.firstName)
         binding.lastNameView.setValue(user.lastName)
         binding.emailView.setValue(user.email)

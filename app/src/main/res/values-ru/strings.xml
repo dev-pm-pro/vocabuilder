@@ -1,7 +1,10 @@
 <resources>
     <string name="birthdate_hint">ДД.ММ.ГГГГ</string>
     <string name="birthdate_label">Дата рождения</string>
+    <string name="change_password_text">Сменить пароль</string>
     <string name="check_form_text">Проверьте правильность заполнения формы</string>
+    <string name="current_pwd_hint">Ваш текущий пароль</string>
+    <string name="current_pwd_label">Текущий пароль</string>
     <string name="email_hint">example@mail.ru</string>
     <string name="first_name_label">Имя</string>
     <string name="have_account_text">Уже есть учетная запись?</string>
@@ -21,6 +24,7 @@
     <string name="menu_stats_label">Статистика</string>
     <string name="menu_decks_label">Наборы</string>
     <string name="name_hint">Не более 30 знаков</string>
+    <string name="new_pwd_label">Новый пароль</string>
     <string name="no_account_text">Ещё нет аккаунта?</string>
     <string name="not_empty_form_text">Все поля должны быть заполнены</string>
     <string name="password_box_hint">Ваш пароль</string>
@@ -36,6 +40,7 @@
     <string name="register_success_text">Регистрация прошла успешно.\n Войдите со своими учетными данными</string>
     <string name="remember_label">Помнить меня</string>
     <string name="registered_label">Дата регистрации</string>
+    <string name="repeat_pwd_label">Повтор пароля</string>
     <string name="reset_button_text">Сбросить</string>
     <string name="retry_text">Повторить</string>
     <string name="toggle_pwd_desc">Переключить видимость</string>
