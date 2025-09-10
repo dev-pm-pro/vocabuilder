@@ -49,6 +49,7 @@
             android:textSize="15sp"
             />
         <ImageView
+            android:id="@+id/logoutImg"
             android:contentDescription="@string/logout_text"
             android:layout_width="25dp"
             android:layout_height="25dp"

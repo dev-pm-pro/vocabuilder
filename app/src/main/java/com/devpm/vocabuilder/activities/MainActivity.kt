@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
     // Declare ViewBinding
@@ -137,5 +138,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         handleAuthState()
+
+        binding.logoutImg.setOnClickListener {
+            app.user = null
+            val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            prefs.edit { remove("uid") }
+            redirectToAuth()
+        }
     }
 }
