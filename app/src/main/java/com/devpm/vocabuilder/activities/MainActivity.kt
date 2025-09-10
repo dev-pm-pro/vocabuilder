@@ -2,18 +2,22 @@ package com.devpm.vocabuilder.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.databinding.ActivityMainBinding
 import com.devpm.vocabuilder.fragments.ProfileFragment
 import com.devpm.vocabuilder.fragments.SettingsFragment
+import com.devpm.vocabuilder.fragments.StatsFragment
 
 class MainActivity : AppCompatActivity() {
+    // объявление ViewBinding
+    private lateinit var binding: ActivityMainBinding
     // Объекты фрагментов
     private val profile = ProfileFragment()
     private val settings = SettingsFragment()
+    private val stats = StatsFragment()
 
     // Функция замены фрагментов
     private fun replaceFragment(fragment: Fragment) {
@@ -25,7 +29,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        // Создание объекта из разметки
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Устанавливаем начальный фрагмент
         supportFragmentManager.beginTransaction()
@@ -33,11 +39,14 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         // Обработчики нажатий
-        findViewById<LinearLayout>(R.id.profileBtn).setOnClickListener {
+        binding.profileBtn.setOnClickListener {
             replaceFragment(profile)
         }
-        findViewById<LinearLayout>(R.id.settingsBtn).setOnClickListener {
+        binding.settingsBtn.setOnClickListener {
             replaceFragment(settings)
+        }
+        binding.statsBtn.setOnClickListener {
+            replaceFragment(stats)
         }
 
         val intent = Intent(this@MainActivity, LoginActivity::class.java)
