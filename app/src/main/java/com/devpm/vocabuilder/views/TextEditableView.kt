@@ -23,6 +23,7 @@ class TextEditableView @JvmOverloads constructor(
     private var nullable: Boolean = false
     private var toggleable: Boolean = false
     private var isPwdOn = false
+    private var originalValue: String = ""
 
     private val controls = listOf(
         binding.textVal, binding.textBox, binding.editImg, binding.checkImg, binding.cancelImg
@@ -89,16 +90,20 @@ class TextEditableView @JvmOverloads constructor(
     }
     fun setValue(text: String) {
         binding.textBox.setText(text)
+        binding.textVal.text = text
     }
 
     private fun setupListeners() {
         binding.cancelImg.setOnClickListener {
+            setValue(originalValue)
             toggleEditMode()
         }
         binding.checkImg.setOnClickListener {
+            setValue(binding.textBox.text.toString())
             toggleEditMode()
         }
         binding.editImg.setOnClickListener {
+            originalValue = binding.textBox.text.toString()
             toggleEditMode()
         }
     }
