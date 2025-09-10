@@ -4,6 +4,7 @@
         <attr name="hint" format="string" />
         <attr name="label" format="string" />
         <attr name="nullable" format="boolean" />
+        <attr name="readonly" format="boolean" />
         <attr name="toggleable" format="boolean" />
         <attr name="value" format="string" />
         <attr name="type" format="integer" />

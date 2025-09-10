@@ -25,6 +25,7 @@
     <color name="orangeDark">#f38c2b</color>
     <color name="orangeLight">#f3b26c</color>
     <color name="orange">#df7020</color>
+    <color name="red">#e53935</color>
     <color name="success">#50B319</color>
     <color name="successT">#DE50B319</color>
     <color name="warning">#F57F17</color>

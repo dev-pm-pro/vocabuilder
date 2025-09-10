@@ -2,33 +2,33 @@ package com.devpm.vocabuilder.views
 
 import android.content.Context
 import android.graphics.Typeface
-import android.renderscript.ScriptGroup.Input
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.view.Gravity.END
-import android.view.Gravity.TOP
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
-import com.devpm.vocabuilder.databinding.ViewTextEditBinding
+import com.devpm.vocabuilder.databinding.ViewTextEditableBinding
 import com.devpm.vocabuilder.R
 import androidx.core.content.withStyledAttributes
 
-class TextEditView @JvmOverloads constructor(
+class TextEditableView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    private val binding: ViewTextEditBinding = ViewTextEditBinding.inflate(
+    private val binding: ViewTextEditableBinding = ViewTextEditableBinding.inflate(
         LayoutInflater.from(context), this, true
     )
     private var nullable: Boolean = false
     private var readonly: Boolean = false
     private var toggleable: Boolean = false
     private var isPwdOn = false
+    private var originalValue: String = ""
+
+    private val controls = listOf(
+        binding.textVal, binding.textBox, binding.editImg, binding.checkImg, binding.cancelImg
+    )
 
     init {
         context.withStyledAttributes(attrs, R.styleable.TextEditView, defStyleAttr, 0) {
@@ -43,6 +43,8 @@ class TextEditView @JvmOverloads constructor(
 
         if (readonly) setReadonly()
         if (toggleable) setToggleable()
+
+        setupListeners()
     }
 
     fun clearError() {
@@ -55,6 +57,7 @@ class TextEditView @JvmOverloads constructor(
         val value = binding.textBox.text.toString()
         return if (nullable) value.ifBlank { null } else value
     }
+    var onValueSaved: ((newValue: String) -> Unit)? = null
     fun setError(message: String) {
         binding.textBox.error = message
     }
@@ -71,16 +74,11 @@ class TextEditView @JvmOverloads constructor(
         binding.label.text = text
     }
     fun setReadonly() {
-        binding.textBox.isClickable = false
-        binding.textBox.isCursorVisible = false
-        binding.textBox.isEnabled = false
-        binding.textBox.isFocusable = false
-        binding.textBox.isFocusableInTouchMode = false
-        binding.textBox.inputType = InputType.TYPE_NULL
-        binding.textBox.keyListener = null
+        binding.textBox.visibility = View.GONE
+        binding.editImg.visibility = View.GONE
+        binding.textVal.visibility = View.VISIBLE
     }
     fun setToggleable() {
-        binding.pwdVisToggle.visibility = View.VISIBLE
         binding.pwdVisToggle.setOnClickListener {
             togglePasswordVisibility()
         }
@@ -102,6 +100,29 @@ class TextEditView @JvmOverloads constructor(
     }
     fun setValue(text: String) {
         binding.textBox.setText(text)
+        binding.textVal.text = text
+    }
+
+    private fun setupListeners() {
+        binding.cancelImg.setOnClickListener {
+            setValue(originalValue)
+            toggleEditMode()
+        }
+        binding.checkImg.setOnClickListener {
+            val newVal = binding.textBox.text.toString()
+            setValue(newVal)
+            toggleEditMode()
+            onValueSaved?.invoke(newVal)
+        }
+        binding.editImg.setOnClickListener {
+            originalValue = binding.textBox.text.toString()
+            toggleEditMode()
+        }
+    }
+
+    private fun toggleEditMode() {
+        controls.forEach { it.toggleVisibility() }
+        if (toggleable) binding.pwdVisToggle.toggleVisibility()
     }
 
     private fun togglePasswordVisibility() {
@@ -117,5 +138,9 @@ class TextEditView @JvmOverloads constructor(
         }
         binding.textBox.typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL)
         binding.textBox.setSelection(binding.textBox.text?.length ?: 0)
+    }
+
+    private fun View.toggleVisibility() {
+        visibility = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
     }
 }

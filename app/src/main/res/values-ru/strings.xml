@@ -35,6 +35,7 @@
     <string name="register_link"><u>Зарегистрируйтесь</u></string>
     <string name="register_success_text">Регистрация прошла успешно.\n Добро пожаловать, %1$s!</string>
     <string name="remember_label">Помнить меня</string>
+    <string name="registered_label">Дата регистрации</string>
     <string name="reset_button_text">Сбросить</string>
     <string name="retry_text">Повторить</string>
     <string name="toggle_pwd_desc">Переключить видимость</string>

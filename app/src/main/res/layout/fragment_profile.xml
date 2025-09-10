@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/loginView"
+        app:label="@string/login_label"
+        app:hint="@string/login_hint"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/passwordView"
+        app:label="@string/password_label"
+        app:hint="@string/password_hint"
+        app:toggleable="true"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/passRepeatView"
+        app:label="@string/pass_repeat_label"
+        app:hint="@string/pass_repeat_hint"
+        app:toggleable="true"
+        app:type="@integer/type_password"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/firstNameView"
+        app:label="@string/first_name_label"
+        app:hint="@string/name_hint"
+        app:nullable="true"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/lastNameView"
+        app:label="@string/last_name_label"
+        app:hint="@string/name_hint"
+        app:nullable="true"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/birthdateView"
+        app:label="@string/birthdate_label"
+        app:hint="@string/birthdate_hint"
+        app:nullable="true"
+        app:type="@integer/type_date"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/emailView"
+        app:label="@string/email_label"
+        app:hint="@string/email_hint"
+        app:nullable="true"
+        app:type="@integer/type_email"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditableView
+        android:id="@+id/phoneView"
+        app:label="@string/phone_label"
+        app:hint="@string/phone_hint"
+        app:nullable="true"
+        app:type="@integer/type_phone"
+        style="@style/FormItem"
+        />
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile fragment" />
+        android:layout_height="wrap_content"
+        style="@style/FormItem"
+        >
+        <TextView
+            android:id="@+id/label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/registered_label"
+            android:textFontWeight="500"
+            style="@style/BaseLabel.FormLabel"
+            />
+        <TextView
+            android:id="@+id/textVal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:text="20.08.2025"
+            android:paddingVertical="7dp"
+            android:paddingEnd="10dp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-condensed"
+            />
+    </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

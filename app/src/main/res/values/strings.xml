@@ -38,6 +38,7 @@
     <string name="register_link"><u>Register here</u></string>
     <string name="register_success_text">Registration completed successfully.\n Welcome, %1$s!</string>
     <string name="remember_label">Remember me</string>
+    <string name="registered_label">Register date</string>
     <string name="reset_button_text">Reset</string>
     <string name="retry_text">Retry</string>
     <string name="toggle_pwd_desc">Toggle visibility</string>
