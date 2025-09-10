@@ -3,6 +3,8 @@ package com.devpm.vocabuilder.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,6 +16,10 @@ import com.devpm.vocabuilder.fragments.DecksFragment
 import com.devpm.vocabuilder.fragments.ProfileFragment
 import com.devpm.vocabuilder.fragments.SettingsFragment
 import com.devpm.vocabuilder.fragments.StatsFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     // Declare ViewBinding
@@ -95,7 +101,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val uid = prefs.getInt("saved_user_id", -1)
+        val uid = prefs.getInt("uid", -1)
+
+        Log.d("MainActivity", uid.toString())
+
+        if (uid != -1) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = app.db.userDao().getUserById(uid)
+                if (user != null) {
+                    Log.d("MainActivity", user.login)
+                    withContext(Dispatchers.Main) {
+                        app.user = user
+                    }
+                }
+            }
+        }
 
         if (app.user == null) {
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
