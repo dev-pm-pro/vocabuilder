@@ -57,6 +57,7 @@ class TextEditableView @JvmOverloads constructor(
         val value = binding.textBox.text.toString()
         return if (nullable) value.ifBlank { null } else value
     }
+    var onValueSaved: ((newValue: String) -> Unit)? = null
     fun setError(message: String) {
         binding.textBox.error = message
     }
@@ -108,8 +109,10 @@ class TextEditableView @JvmOverloads constructor(
             toggleEditMode()
         }
         binding.checkImg.setOnClickListener {
-            setValue(binding.textBox.text.toString())
+            val newVal = binding.textBox.text.toString()
+            setValue(newVal)
             toggleEditMode()
+            onValueSaved?.invoke(newVal)
         }
         binding.editImg.setOnClickListener {
             originalValue = binding.textBox.text.toString()
