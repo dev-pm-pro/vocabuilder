@@ -1,5 +1,6 @@
 package com.devpm.vocabuilder.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -92,6 +93,9 @@ class MainActivity : AppCompatActivity() {
             resetActiveState()
             setActiveState("stats")
         }
+
+        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val uid = prefs.getInt("saved_user_id", -1)
 
         if (app.user == null) {
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
