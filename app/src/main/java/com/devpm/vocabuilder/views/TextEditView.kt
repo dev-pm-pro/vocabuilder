@@ -40,15 +40,9 @@ class TextEditView @JvmOverloads constructor(
             readonly = getBoolean(R.styleable.TextEditView_readonly, false)
             toggleable = getBoolean(R.styleable.TextEditView_toggleable, false)
         }
-        if (readonly) {
-            setReadonly()
-        }
-        if (toggleable) {
-            binding.pwdVisToggle.visibility = View.VISIBLE
-            binding.pwdVisToggle.setOnClickListener {
-                togglePasswordVisibility()
-            }
-        }
+
+        if (readonly) setReadonly()
+        if (toggleable) setToggleable()
     }
 
     fun clearError() {
@@ -84,6 +78,12 @@ class TextEditView @JvmOverloads constructor(
         binding.textBox.isFocusableInTouchMode = false
         binding.textBox.inputType = InputType.TYPE_NULL
         binding.textBox.keyListener = null
+    }
+    fun setToggleable() {
+        binding.pwdVisToggle.visibility = View.VISIBLE
+        binding.pwdVisToggle.setOnClickListener {
+            togglePasswordVisibility()
+        }
     }
     fun setType(type: Int) {
         binding.textBox.inputType = type

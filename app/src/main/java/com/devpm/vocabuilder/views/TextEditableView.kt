@@ -40,15 +40,9 @@ class TextEditableView @JvmOverloads constructor(
             readonly = getBoolean(R.styleable.TextEditView_readonly, false)
             toggleable = getBoolean(R.styleable.TextEditView_toggleable, false)
         }
-        if (readonly) {
-            setReadonly()
-        }
-        if (toggleable) {
-            binding.pwdVisToggle.visibility = View.VISIBLE
-            binding.pwdVisToggle.setOnClickListener {
-                togglePasswordVisibility()
-            }
-        }
+
+        if (readonly) setReadonly()
+        if (toggleable) setToggleable()
 
         setupListeners()
     }
@@ -82,6 +76,12 @@ class TextEditableView @JvmOverloads constructor(
         binding.textBox.visibility = View.GONE
         binding.editImg.visibility = View.GONE
         binding.textVal.visibility = View.VISIBLE
+    }
+    fun setToggleable() {
+        binding.pwdVisToggle.visibility = View.VISIBLE
+        binding.pwdVisToggle.setOnClickListener {
+            togglePasswordVisibility()
+        }
     }
     fun setType(type: Int) {
         binding.textBox.inputType = type
