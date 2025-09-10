@@ -42,6 +42,69 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun handleAuthState() {
+        if (app.user != null) {
+            initialize()
+            return;
+        }
+
+        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val uid = prefs.getInt("uid", -1)
+        Log.d("MainActivity", uid.toString())
+
+        if (uid == -1) {
+            redirectToAuth()
+            return;
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val user = app.db.userDao().getUserById(uid)
+            if (user == null) {
+                redirectToAuth()
+                return@launch;
+            }
+            withContext(Dispatchers.Main) {
+                app.user = user
+                initialize()
+            }
+        }
+    }
+
+    private fun initialize() {
+        // Set initial fragment
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainContent, profile)
+            .commit()
+
+        // Click handlers
+        binding.decksBtn.setOnClickListener {
+            replaceFragment(decks)
+            resetActiveState()
+            setActiveState("decks")
+        }
+        binding.profileBtn.setOnClickListener {
+            replaceFragment(profile)
+            resetActiveState()
+            setActiveState("profile")
+        }
+        binding.settingsBtn.setOnClickListener {
+            replaceFragment(settings)
+            resetActiveState()
+            setActiveState("settings")
+        }
+        binding.statsBtn.setOnClickListener {
+            replaceFragment(stats)
+            resetActiveState()
+            setActiveState("stats")
+        }
+    }
+
+    private fun redirectToAuth() {
+        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     // Fragments replacement function
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
@@ -73,55 +136,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set initial fragment
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContent, profile)
-            .commit()
-
-        // Click handlers
-        binding.decksBtn.setOnClickListener {
-            replaceFragment(decks)
-            resetActiveState()
-            setActiveState("decks")
-        }
-        binding.profileBtn.setOnClickListener {
-            replaceFragment(profile)
-            resetActiveState()
-            setActiveState("profile")
-        }
-        binding.settingsBtn.setOnClickListener {
-            replaceFragment(settings)
-            resetActiveState()
-            setActiveState("settings")
-        }
-        binding.statsBtn.setOnClickListener {
-            replaceFragment(stats)
-            resetActiveState()
-            setActiveState("stats")
-        }
-
-        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val uid = prefs.getInt("uid", -1)
-
-        Log.d("MainActivity", uid.toString())
-
-        if (uid != -1) {
-            CoroutineScope(Dispatchers.IO).launch {
-                val user = app.db.userDao().getUserById(uid)
-                if (user != null) {
-                    Log.d("MainActivity", user.login)
-                    withContext(Dispatchers.Main) {
-                        app.user = user
-                    }
-                }
-            }
-        }
-
-        if (app.user == null) {
-            val intent = Intent(this@MainActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
-        }
+        handleAuthState()
     }
 }
