@@ -17,6 +17,7 @@
     <string name="login_label">Login</string>
     <string name="login_link"><u>Sign in here</u></string>
     <string name="login_success_text">Login successful.\n Welcome, %1$s!</string>
+    <string name="logout_text">Log out</string>
     <string name="menu_profile_label">Profile</string>
     <string name="menu_settings_label">Settings</string>
     <string name="menu_stats_label">Statistics</string>
