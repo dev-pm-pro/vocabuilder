@@ -6,10 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.FragmentProfileBinding
+
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +37,13 @@ class ProfileFragment : Fragment() {
         FragmentProfileBinding.inflate(layoutInflater)
     }
 
+    // Pass app from MainActivity
+    private val app: App by lazy { requireActivity().application as App }
+
+    // Define userDao
+    private val userDao by lazy {
+        app.db.userDao()
+    }
     private fun populateProfile(user: User) {
         binding.loginView.setValue(user.login)
         binding.firstNameView.setValue(user.firstName)
@@ -37,6 +51,63 @@ class ProfileFragment : Fragment() {
         binding.emailView.setValue(user.email)
         binding.birthdateView.setValue(user.birthDate)
         binding.phoneView.setValue(user.phone)
+    }
+
+    // Subscribe for changes and save on checkImg click
+    private fun setEditHandlers()
+    {
+        binding.loginView.onValueSaved = { newValue ->
+            updateUserField("login", newValue)
+        }
+        binding.firstNameView.onValueSaved = { newValue ->
+            updateUserField("firstName", newValue)
+        }
+        binding.lastNameView.onValueSaved = { newValue ->
+            updateUserField("lastName", newValue)
+        }
+        binding.emailView.onValueSaved = { newValue ->
+            updateUserField("email", newValue)
+        }
+        binding.birthdateView.onValueSaved = { newValue ->
+            updateUserField("birthDate", newValue)
+        }
+        binding.phoneView.onValueSaved = { newValue ->
+            updateUserField("phone", newValue)
+        }
+    }
+
+    private fun updateUserField(fieldName: String, newValue: String) {
+        val user = app.user ?: return
+        when (fieldName) {
+            "login" -> user.login = newValue
+            "firstName" -> user.firstName = newValue
+            "lastName" -> user.lastName = newValue
+            "email" -> user.email = newValue
+            "birthDate" -> user.birthDate = newValue
+            "phone" -> user.phone = newValue
+        }
+        // Save async
+        lifecycleScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    userDao.updateUser(user)
+                }
+                // Handle saving success
+                Snackbar.make(binding.root, "Данные пользователя успешно сохранены", Snackbar.LENGTH_LONG).apply {
+                    setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.successT))
+                    setAnchorView(binding.updatePwdBtn)
+                    show()
+                }
+            } catch (exc: Exception) {
+                // Handle saving error
+                Snackbar.make(binding.root, "Ошибка при сохранении данных: ${exc.message}", Snackbar.LENGTH_LONG).apply {
+                    setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.errorT))
+                    setAnchorView(binding.updatePwdBtn)
+                    show()
+                }
+                exc.message?.let { Log.e("Profile", it) }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +128,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val app = (requireActivity().application as App)
         app.user?.let { populateProfile(it) }
+        setEditHandlers()
     }
 
     companion object {
