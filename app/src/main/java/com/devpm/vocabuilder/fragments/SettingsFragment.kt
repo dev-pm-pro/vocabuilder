@@ -1,10 +1,13 @@
 package com.devpm.vocabuilder.fragments
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.FragmentSettingsBinding
 
@@ -27,6 +30,28 @@ class SettingsFragment : Fragment() {
         FragmentSettingsBinding.inflate(layoutInflater)
     }
 
+    private var avatarUri: Uri? = null
+
+    // Register callback to get the resulting image chosen from gallery
+    private val getImageFromGallery = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            avatarUri = it
+            binding.avatarImg.setImageURI(it)
+            saveUserAvatar(it)
+        }
+    }
+
+    private fun saveUserAvatar(uri: Uri) {
+        // @TODO: Implement image saving (Uri or file copy)
+        // Save Uri in user model for simplicity
+        /*
+        user.avatarUri = uri.toString()
+        CoroutineScope(Dispatchers.IO).launch {
+            userDao.updateUser(user)
+        }
+        */
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -41,6 +66,15 @@ class SettingsFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.avatarImg.setOnClickListener {
+            // Open gallery to choose image type
+            getImageFromGallery.launch("image/*")
+        }
     }
 
     companion object {
