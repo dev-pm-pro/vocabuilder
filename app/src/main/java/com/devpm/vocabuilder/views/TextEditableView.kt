@@ -1,7 +1,9 @@
 package com.devpm.vocabuilder.views
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Typeface
+import android.icu.util.Calendar
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
@@ -11,6 +13,7 @@ import android.widget.LinearLayout
 import com.devpm.vocabuilder.databinding.ViewTextEditableBinding
 import com.devpm.vocabuilder.R
 import androidx.core.content.withStyledAttributes
+import kotlin.math.max
 
 class TextEditableView @JvmOverloads constructor(
     context: Context,
@@ -43,6 +46,7 @@ class TextEditableView @JvmOverloads constructor(
 
         if (readonly) setReadonly()
         if (toggleable) setToggleable()
+        if (binding.textBox.inputType == 20) setDatePicker()
 
         setupListeners()
     }
@@ -101,6 +105,39 @@ class TextEditableView @JvmOverloads constructor(
     fun setValue(text: String?) {
         binding.textBox.setText(text)
         binding.textVal.text = text
+    }
+
+    private fun setCalendarDate(age: Int, date: Triple<Int, Int, Int>): Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, date.first - age)
+        calendar.set(Calendar.MONTH, date.second)
+        calendar.set(Calendar.DAY_OF_MONTH, date.third)
+        return calendar
+    }
+
+    private fun setDatePicker() {
+        // binding.textBox.isFocusable = false // Prevents user input into editText
+        binding.textBox.isClickable = true
+        val maxAge = 120
+        val minAge = 6
+
+        binding.textBox.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val date = Triple(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
+
+            val datePickerdialog = DatePickerDialog(context, {_, selectedYear, selectedMonth, selectedDay ->
+                val formatedDate = String.format("%02d.%02d.%04d", selectedDay, selectedMonth + 1, selectedYear)
+                binding.textBox.setText(formatedDate)
+            }, date.first, date.second, date.third)
+
+            datePickerdialog.datePicker.maxDate = setCalendarDate(minAge, date).timeInMillis
+            datePickerdialog.datePicker.minDate = setCalendarDate(maxAge, date).timeInMillis
+
+            datePickerdialog.show()
+        }
     }
 
     private fun setupListeners() {
