@@ -17,6 +17,7 @@ data class User(
     var birthDate: String? = null,
     var email: String? = null,
     var phone: String? = null,
+    var avatarUri: String? = null,
     var created: Long
 ) {
 }
