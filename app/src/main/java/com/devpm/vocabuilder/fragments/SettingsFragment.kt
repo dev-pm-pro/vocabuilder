@@ -8,8 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.FragmentSettingsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +34,14 @@ class SettingsFragment : Fragment() {
         FragmentSettingsBinding.inflate(layoutInflater)
     }
 
+    // Pass app from MainActivity
+    private val app: App by lazy { requireActivity().application as App }
+
+    // Define userDao
+    private val userDao by lazy {
+        app.db.userDao()
+    }
+
     private var avatarUri: Uri? = null
 
     // Register callback to get the resulting image chosen from gallery
@@ -44,12 +56,11 @@ class SettingsFragment : Fragment() {
     private fun saveUserAvatar(uri: Uri) {
         // @TODO: Implement image saving (Uri or file copy)
         // Save Uri in user model for simplicity
-        /*
+        val user = app.user!!
         user.avatarUri = uri.toString()
         CoroutineScope(Dispatchers.IO).launch {
             userDao.updateUser(user)
         }
-        */
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
