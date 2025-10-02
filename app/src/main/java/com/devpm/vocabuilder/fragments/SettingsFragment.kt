@@ -2,16 +2,21 @@ package com.devpm.vocabuilder.fragments
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.devpm.vocabuilder.App
+import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.FragmentSettingsBinding
-import kotlinx.coroutines.CoroutineScope
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,8 +61,27 @@ class SettingsFragment : Fragment() {
         // Save Uri in user model for simplicity
         val user = app.user!!
         user.avatarUri = uri.toString()
-        CoroutineScope(Dispatchers.IO).launch {
-            userDao.updateUser(user)
+        // Save async
+        lifecycleScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    userDao.updateUser(user)
+                }
+                // Handle saving success
+                Snackbar.make(binding.root, "Данные пользователя успешно сохранены", Snackbar.LENGTH_LONG).apply {
+                    setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.successT))
+                    setAnchorView(binding.avatarImg)
+                    show()
+                }
+            } catch (exc: Exception) {
+                // Handle saving error
+                Snackbar.make(binding.root, "Ошибка при сохранении данных: ${exc.message}", Snackbar.LENGTH_LONG).apply {
+                    setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.errorT))
+                    setAnchorView(binding.avatarImg)
+                    show()
+                }
+                exc.message?.let { Log.e("Settings", it) }
+            }
         }
     }
 
