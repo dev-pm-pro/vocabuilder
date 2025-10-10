@@ -1,5 +1,6 @@
 package com.devpm.vocabuilder.fragments
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.FragmentSettingsBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
@@ -47,12 +49,31 @@ class SettingsFragment : Fragment() {
 
     private var avatarUri: Uri? = null
 
-    // Register callback to get the resulting image chosen from gallery
-    private val getImageFromGallery = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    // Use OpenDocument contract for long-term file access
+    private val getImageFromGallery = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri?.let {
+            // Request long-term permissions
+            val contentResolver = requireActivity().contentResolver
+
+            // Check persistable permissions
+            try {
+                contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                )
+            } catch (e: SecurityException) {
+                Log.w("SettingsFragment", "Не удалось взять персистентные права: $e")
+            }
+
             avatarUri = it
             binding.avatarImg.setImageURI(it)
             saveUserAvatar(it)
+        }
+    }
+    private fun populateSettings(user: User) {
+        user.avatarUri?.let {
+            val uri = Uri.parse(it)
+            binding.avatarImg.setImageURI(uri)
         }
     }
 
@@ -104,9 +125,11 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        app.user?.let { populateSettings(it) }
+
         binding.avatarImg.setOnClickListener {
-            // Open gallery to choose image type
-            getImageFromGallery.launch("image/*")
+            // Открываем селектор для изображений с долгосрочным доступом
+            getImageFromGallery.launch(arrayOf("image/*"))
         }
     }
 
