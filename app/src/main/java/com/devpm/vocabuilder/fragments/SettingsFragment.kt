@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.activities.ImageActivity
 import com.devpm.vocabuilder.data.models.User
 import com.devpm.vocabuilder.databinding.FragmentSettingsBinding
 import com.google.android.material.snackbar.Snackbar
@@ -128,7 +130,17 @@ class SettingsFragment : Fragment() {
         app.user?.let { populateSettings(it) }
 
         binding.avatarImg.setOnClickListener {
-            // Открываем селектор для изображений с долгосрочным доступом
+            app.user?.avatarUri?.let { uri ->
+                val intent = Intent(context, ImageActivity::class.java)
+                intent.putExtra("imageUri", uri.toString())
+                startActivity(intent)
+            } ?: run {
+                Toast.makeText(context, "Изображение не выбрано", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.changeBtn.setOnClickListener {
+            // Open selector for persisted images
             getImageFromGallery.launch(arrayOf("image/*"))
         }
     }

@@ -8,6 +8,7 @@
     <string name="email_hint">example@mail.ru</string>
     <string name="first_name_label">Имя</string>
     <string name="have_account_text">Уже есть учетная запись?</string>
+    <string name="image_fullscreen">Полноэкранное изображение</string>
     <string name="keep_logged_text">(оставаться в системе)</string>
     <string name="last_name_label">Фамилия</string>
     <string name="login_box_hint">Ваше учетное имя</string>

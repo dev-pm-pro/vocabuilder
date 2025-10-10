@@ -8,8 +8,9 @@
     <string name="current_pwd_label">Current password</string>
     <string name="email_hint">example@mail.com</string>
     <string name="email_label" translatable="false">Email</string>
-    <string name="have_account_text">Already have an account?</string>
     <string name="first_name_label">First name</string>
+    <string name="have_account_text">Already have an account?</string>
+    <string name="image_fullscreen">Full screen image</string>
     <string name="keep_logged_text">(keep logged in)</string>
     <string name="last_name_label">Last name</string>
     <string name="login_box_hint">Your username</string>
