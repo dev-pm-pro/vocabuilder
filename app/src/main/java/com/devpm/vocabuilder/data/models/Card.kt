@@ -11,7 +11,7 @@ import androidx.room.Update
 data class Card(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     var term: String,
-    var transcription: String,
+    var phonetics: String?,
     var definition: String,
     var deckId: Int,
     var userId: Int,
