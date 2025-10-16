@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.devpm.vocabuilder.R
+import android.widget.Toast
+import com.devpm.vocabuilder.databinding.FragmentDecksBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,20 +23,33 @@ class DecksFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val binding: FragmentDecksBinding by lazy {
+        FragmentDecksBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_decks, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.addCardBtn.setOnClickListener {
+            Toast.makeText(context, "Transition here", Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {
