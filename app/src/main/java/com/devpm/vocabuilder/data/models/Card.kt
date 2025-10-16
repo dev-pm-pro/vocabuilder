@@ -10,8 +10,9 @@ import androidx.room.Update
 @Entity(tableName = "cards")
 data class Card(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    var value: String,
+    var term: String,
     var transcription: String,
+    var definition: String,
     var deckId: Int,
     var userId: Int,
     var created: Long
