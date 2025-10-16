@@ -13,8 +13,8 @@
         style="@style/FormItem"
         />
     <com.devpm.vocabuilder.views.TextEditView
-        android:id="@+id/transcriptionView"
-        app:label="Phonetic"
+        android:id="@+id/phoneticsView"
+        app:label="Phonetics"
         app:hint="@string/name_hint"
         style="@style/FormItem"
         />
@@ -23,5 +23,15 @@
         app:label="Definition"
         app:hint="@string/name_hint"
         style="@style/FormItem"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addBtn"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/greenBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/BaseButton.FormButton"
         />
 </LinearLayout>
