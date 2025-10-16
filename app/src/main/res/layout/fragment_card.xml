@@ -14,7 +14,7 @@
         />
     <com.devpm.vocabuilder.views.TextEditView
         android:id="@+id/transcriptionView"
-        app:label="Transcription"
+        app:label="Phonetic"
         app:hint="@string/name_hint"
         style="@style/FormItem"
         />
