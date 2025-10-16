@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,6 +26,15 @@ class DecksFragment : Fragment() {
 
     private val binding: FragmentDecksBinding by lazy {
         FragmentDecksBinding.inflate(layoutInflater)
+    }
+
+    private fun goToNewCard() {
+        val newFragment = CardFragment()
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.mainContent, newFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +58,7 @@ class DecksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addCardBtn.setOnClickListener {
-            Toast.makeText(context, "Transition here", Toast.LENGTH_SHORT).show()
+            goToNewCard()
         }
     }
 
