@@ -29,7 +29,7 @@ interface CardDao {
     suspend fun getCardByUid(uid: Int): Card?
 
     @Query("SELECT * FROM cards WHERE id = :id LIMIT 1")
-    suspend fun getCardById(id: Int): User?
+    suspend fun getCardById(id: Int): Card?
 
     @Update
     suspend fun updateCard(card: Card)
