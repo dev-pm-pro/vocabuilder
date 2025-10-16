@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toggleFragment(target: String) {
+    fun toggleFragment(target: String) {
         resetActiveState()
         setActiveState(target)
         fragments[target]?.let { replaceFragment(it) }
