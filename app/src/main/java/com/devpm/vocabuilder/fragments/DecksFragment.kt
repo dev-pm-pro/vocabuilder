@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.activities.MainActivity
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,12 +30,7 @@ class DecksFragment : Fragment() {
     }
 
     private fun goToNewCard() {
-        val newFragment = CardFragment()
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.mainContent, newFragment)
-            .addToBackStack(null)
-            .commit()
+        (activity as? MainActivity)?.toggleFragment(CardFragment())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

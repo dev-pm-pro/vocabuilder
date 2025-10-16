@@ -132,10 +132,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun toggleFragment(target: String) {
+    private fun toggleFragment(target: String) {
         resetActiveState()
         setActiveState(target)
         fragments[target]?.let { replaceFragment(it) }
+    }
+    fun toggleFragment(target: Fragment) {
+        resetActiveState()
+        replaceFragment(target)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
