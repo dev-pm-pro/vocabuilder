@@ -3,6 +3,7 @@ package com.devpm.vocabuilder.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +22,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +55,34 @@ class SettingsFragment : Fragment() {
 
     private var avatarUri: Uri? = null
 
+    // Copy InputStream to the app's inner local file storage
+    private fun copyFileToInternalStorage(inputStream: InputStream, fileName: String): File? {
+        return try {
+            val file = File(requireContext().filesDir, fileName)
+            FileOutputStream(file).use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+            file
+        } catch (e: Exception) {
+            Log.e("SettingsFragment", "Error while copying the file: $e")
+            null
+        } finally {
+            inputStream.close()
+        }
+    }
+
+    // Generate file name, may use the original name or make a new one
+    private fun generateFileName(uri: Uri): String {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        val nameIndex = cursor?.getColumnIndex(OpenableColumns.DISPLAY_NAME) ?: -1
+        var fileName = "avatar_${System.currentTimeMillis()}.jpg"
+        if (cursor != null && cursor.moveToFirst() && nameIndex >= 0) {
+            fileName = cursor.getString(nameIndex)
+        }
+        cursor?.close()
+        return fileName
+    }
+
     // Use OpenDocument contract for long-term file access
     private val getImageFromGallery = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri?.let {
@@ -72,6 +104,22 @@ class SettingsFragment : Fragment() {
             saveUserAvatar(it)
         }
     }
+    private val getImgFromGallery = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+        uri?.let {
+            // Получаем InputStream выбранного файла
+            val inputStream = requireContext().contentResolver.openInputStream(it)
+            if (inputStream != null) {
+                // Копируем файл во внутреннее хранилище
+                val destFile = copyFileToInternalStorage(inputStream, generateFileName(it))
+                if (destFile != null) {
+                    avatarUri = Uri.fromFile(destFile)
+                    binding.avatarImg.setImageURI(avatarUri)
+                    saveUserAvatar(avatarUri!!)
+                }
+            }
+        }
+    }
+
     private fun populateSettings(user: User) {
         user.avatarUri?.let {
             val uri = Uri.parse(it)
@@ -142,6 +190,7 @@ class SettingsFragment : Fragment() {
         binding.changeBtn.setOnClickListener {
             // Open selector for persisted images
             getImageFromGallery.launch(arrayOf("image/*"))
+            //getImgFromGallery.launch(arrayOf("image/*"))
         }
     }
 
