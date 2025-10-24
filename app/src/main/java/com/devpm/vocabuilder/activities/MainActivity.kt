@@ -29,10 +29,12 @@ class MainActivity : AppCompatActivity() {
     // App Preferences
     private val prefs by lazy { getSharedPreferences("app_prefs", Context.MODE_PRIVATE) }
     // Fragment objects
-    private val decks = DecksFragment()
-    private val profile = ProfileFragment()
-    private val settings = SettingsFragment()
-    private val stats = StatsFragment()
+    private val fragments = mapOf(
+        "decks" to DecksFragment(),
+        "profile" to ProfileFragment(),
+        "settings" to SettingsFragment(),
+        "stats" to StatsFragment(),
+    )
 
     // Navigation elements
     private val ctrls by lazy {
@@ -73,30 +75,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragments() {
         // Set initial fragment
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.mainContent, profile)
-            .commit()
+        toggleFragment("profile")
 
         // Click handlers
         binding.decksBtn.setOnClickListener {
-            replaceFragment(decks)
-            resetActiveState()
-            setActiveState("decks")
+            toggleFragment("decks")
         }
         binding.profileBtn.setOnClickListener {
-            replaceFragment(profile)
-            resetActiveState()
-            setActiveState("profile")
+            toggleFragment("profile")
         }
         binding.settingsBtn.setOnClickListener {
-            replaceFragment(settings)
-            resetActiveState()
-            setActiveState("settings")
+            toggleFragment("settings")
         }
         binding.statsBtn.setOnClickListener {
-            replaceFragment(stats)
-            resetActiveState()
-            setActiveState("stats")
+            toggleFragment("stats")
         }
     }
 
@@ -138,6 +130,16 @@ class MainActivity : AppCompatActivity() {
             img.setColorFilter(activeColor)
             lbl.setTextColor(activeColor)
         }
+    }
+
+    fun toggleFragment(target: String) {
+        resetActiveState()
+        setActiveState(target)
+        fragments[target]?.let { replaceFragment(it) }
+    }
+    fun toggleFragment(target: Fragment) {
+        resetActiveState()
+        replaceFragment(target)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

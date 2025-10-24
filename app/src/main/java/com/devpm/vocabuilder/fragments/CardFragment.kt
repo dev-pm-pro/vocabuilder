@@ -6,9 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.activities.MainActivity
+import com.devpm.vocabuilder.data.models.Card
+import com.devpm.vocabuilder.data.models.User
+import com.devpm.vocabuilder.databinding.FragmentCardBinding
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.ZoneId
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,34 +26,45 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [DecksFragment.newInstance] factory method to
+ * Use the [CardFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DecksFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class CardFragment : Fragment() {
+    private var deckId: Int? = null
 
-    private val binding: FragmentDecksBinding by lazy {
-        FragmentDecksBinding.inflate(layoutInflater)
+    private val binding: FragmentCardBinding by lazy {
+        FragmentCardBinding.inflate(layoutInflater)
     }
 
-    private fun goToNewCard() {
-        val cardFragment = CardFragment()
-        val bundle = Bundle()
-        bundle.putInt("deckId", 1)
-        cardFragment.arguments = bundle
+    private val app: App by lazy { requireActivity().application as App }
 
-        (activity as? MainActivity)?.toggleFragment(cardFragment)
+    private val cardDao by lazy {
+        app.db.cardDao()
+    }
+
+    private fun addCard() {
+        // Validate
+        val card = Card(
+            term = binding.termView.getValue()!!,
+            phonetics = binding.phoneticsView.getValue(),
+            definition = binding.definitionView.getValue()!!,
+            deckId = deckId!!,
+            userId = app.user!!.id,
+            created = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            cardDao.insertCard(card)
+
+        }
+        Toast.makeText(context, "Карточка добавлена",
+            Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            deckId = arguments?.getInt("deckId")
         }
-
     }
 
     override fun onCreateView(
@@ -58,8 +78,9 @@ class DecksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.addCardBtn.setOnClickListener {
-            goToNewCard()
+        binding.addBtn.setOnClickListener {
+            addCard()
+            (activity as? MainActivity)?.toggleFragment("decks")
         }
     }
 
@@ -70,12 +91,12 @@ class DecksFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment DecksFragment.
+         * @return A new instance of fragment CardFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            DecksFragment().apply {
+            CardFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

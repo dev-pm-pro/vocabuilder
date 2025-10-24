@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CardFragment">
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/termView"
+        app:label="Term"
+        app:hint="@string/name_hint"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/phoneticsView"
+        app:label="Phonetics"
+        app:hint="@string/name_hint"
+        style="@style/FormItem"
+        />
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/definitionView"
+        app:label="Definition"
+        app:hint="@string/name_hint"
+        style="@style/FormItem"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addBtn"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/greenBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/BaseButton.FormButton"
+        />
+</LinearLayout>
