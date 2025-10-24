@@ -5,7 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
+import com.devpm.vocabuilder.activities.MainActivity
+import com.devpm.vocabuilder.data.models.Card
+import com.devpm.vocabuilder.data.models.User
+import com.devpm.vocabuilder.databinding.FragmentCardBinding
+import com.devpm.vocabuilder.databinding.FragmentDecksBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.ZoneId
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,24 +30,58 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var deckId: Int? = null
+
+    private val binding: FragmentCardBinding by lazy {
+        FragmentCardBinding.inflate(layoutInflater)
+    }
+
+    private val app: App by lazy { requireActivity().application as App }
+
+    private val cardDao by lazy {
+        app.db.cardDao()
+    }
+
+    private fun addCard() {
+        // Validate
+        val card = Card(
+            term = binding.termView.getValue()!!,
+            phonetics = binding.phoneticsView.getValue(),
+            definition = binding.definitionView.getValue()!!,
+            deckId = deckId!!,
+            userId = app.user!!.id,
+            created = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            cardDao.insertCard(card)
+
+        }
+        Toast.makeText(context, "Карточка добавлена",
+            Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            deckId = arguments?.getInt("deckId")
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_card, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.addBtn.setOnClickListener {
+            addCard()
+            (activity as? MainActivity)?.toggleFragment("decks")
+        }
     }
 
     companion object {
