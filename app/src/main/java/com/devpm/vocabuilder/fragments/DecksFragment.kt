@@ -6,9 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.activities.MainActivity
+import com.devpm.vocabuilder.data.models.Card
+import com.devpm.vocabuilder.data.models.Deck
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.ZoneId
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +35,27 @@ class DecksFragment : Fragment() {
 
     private val binding: FragmentDecksBinding by lazy {
         FragmentDecksBinding.inflate(layoutInflater)
+    }
+
+    private val app: App by lazy { requireActivity().application as App }
+
+    private val deckDao by lazy {
+        app.db.deckDao()
+    }
+
+    private fun addDeck() {
+        // Validate
+        val deck = Deck(
+            title = binding.titleView.getValue()!!,
+            userId = app.user!!.id,
+            created = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            deckDao.insertDeck(deck)
+
+        }
+        Toast.makeText(context, "Колода добавлена",
+            Toast.LENGTH_SHORT).show()
     }
 
     private fun goToNewCard() {
@@ -60,6 +89,9 @@ class DecksFragment : Fragment() {
 
         binding.addCardBtn.setOnClickListener {
             goToNewCard()
+        }
+        binding.addDeckBtn.setOnClickListener {
+            addDeck()
         }
     }
 

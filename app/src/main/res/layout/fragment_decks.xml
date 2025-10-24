@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.DecksFragment">
+    android:orientation="vertical"
+    tools:context=".fragments.DecksFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <com.devpm.vocabuilder.views.TextEditView
+        android:id="@+id/titleView"
+        app:label="Title"
+        app:hint="@string/name_hint"
+        style="@style/FormItem"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addDeckBtn"
+        android:background="@drawable/button_bg"
+        android:backgroundTint="@color/greenBright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Deck"
+        style="@style/BaseButton.FormButton"
+        />
 
     <Button
         android:id="@+id/addCardBtn"
@@ -12,4 +30,4 @@
         android:text="Добавить карточку"
         />
 
-</FrameLayout>
+</LinearLayout>
