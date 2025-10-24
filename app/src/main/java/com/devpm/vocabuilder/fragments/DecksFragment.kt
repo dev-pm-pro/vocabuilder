@@ -30,7 +30,12 @@ class DecksFragment : Fragment() {
     }
 
     private fun goToNewCard() {
-        (activity as? MainActivity)?.toggleFragment(CardFragment())
+        val cardFragment = CardFragment()
+        val bundle = Bundle()
+        bundle.putInt("deckId", 1)
+        cardFragment.arguments = bundle
+
+        (activity as? MainActivity)?.toggleFragment(cardFragment)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
