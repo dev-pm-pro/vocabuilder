@@ -2,12 +2,21 @@ package com.devpm.vocabuilder.data.models
 
 import androidx.room.Dao
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Update
 
-@Entity(tableName = "decks")
+@Entity(
+    tableName = "decks",
+    foreignKeys = [ForeignKey(
+        entity = User::class,
+        parentColumns = ["id"],
+        childColumns = ["userId"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 data class Deck(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     var title: String,
