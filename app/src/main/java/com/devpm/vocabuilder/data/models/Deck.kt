@@ -3,6 +3,7 @@ package com.devpm.vocabuilder.data.models
 import androidx.room.Dao
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
@@ -15,7 +16,8 @@ import androidx.room.Update
         parentColumns = ["id"],
         childColumns = ["userId"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index("userId")]
 )
 data class Deck(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
