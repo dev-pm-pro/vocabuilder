@@ -31,8 +31,8 @@ class DeckAdapter(private var decks: List<Deck>)
         holder.uidTextView.text = deck.userId.toString()
     }
 
-    // Метод для обновления данных и обновления списка
-    fun updateCards(newCards: List<Deck>) {
+    // Update list data
+    fun updateDecks(newCards: List<Deck>) {
         decks = newCards
         notifyDataSetChanged()
     }
