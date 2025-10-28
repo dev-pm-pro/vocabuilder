@@ -22,6 +22,36 @@
         android:text="New Deck"
         style="@style/BaseButton.FormButton"
         />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:text="Deck Id"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:text="Deck Title"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:text="User Id"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/decksRecyclerView"
         android:layout_width="match_parent"
