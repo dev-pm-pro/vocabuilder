@@ -22,7 +22,10 @@
         android:text="New Deck"
         style="@style/BaseButton.FormButton"
         />
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/decksRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/addCardBtn"
         android:layout_width="wrap_content"
