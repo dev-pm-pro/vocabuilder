@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/idView"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:padding="10dp"
+        android:text="Deck Id"
+        />
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:padding="10dp"
+        android:text="Deck Title"
+        />
+    <TextView
+        android:id="@+id/uidView"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:padding="10dp"
+        android:text="User Id"
+        />
+</LinearLayout>

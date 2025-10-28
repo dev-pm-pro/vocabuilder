@@ -1,14 +1,27 @@
 package com.devpm.vocabuilder.fragments
 
+import android.util.Log
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.devpm.vocabuilder.App
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.activities.MainActivity
+import com.devpm.vocabuilder.data.models.Card
+import com.devpm.vocabuilder.data.models.Deck
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
+import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.devpm.vocabuilder.adapters.DeckAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.ZoneId
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,8 +38,39 @@ class DecksFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var deckAdapter: DeckAdapter
+
     private val binding: FragmentDecksBinding by lazy {
         FragmentDecksBinding.inflate(layoutInflater)
+    }
+
+    private val app: App by lazy { requireActivity().application as App }
+
+    private val deckDao by lazy {
+        app.db.deckDao()
+    }
+
+    private fun addDeck() {
+        // Validate
+        val deck = Deck(
+            title = binding.titleView.getValue()!!,
+            userId = app.user!!.id,
+            created = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            deckDao.insertDeck(deck)
+
+        }
+        Toast.makeText(context, "Колода добавлена",
+            Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadDecks() {
+        lifecycleScope.launch {
+            val decks = deckDao.getDecksByUid(app.user!!.id)
+            Log.d("DecksFragment", "Loaded decks: $decks")
+            deckAdapter.updateDecks(decks)
+        }
     }
 
     private fun goToNewCard() {
@@ -58,8 +102,24 @@ class DecksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.decksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        deckAdapter = DeckAdapter(emptyList())
+        binding.decksRecyclerView.adapter = deckAdapter
+
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        binding.decksRecyclerView.addItemDecoration(dividerItemDecoration)
+
+        loadDecks()
+
         binding.addCardBtn.setOnClickListener {
             goToNewCard()
+        }
+
+        binding.addCardBtn.setOnClickListener {
+            goToNewCard()
+        }
+        binding.addDeckBtn.setOnClickListener {
+            addDeck()
         }
     }
 
