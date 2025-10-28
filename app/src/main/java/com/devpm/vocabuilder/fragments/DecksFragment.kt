@@ -15,6 +15,7 @@ import com.devpm.vocabuilder.data.models.Deck
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
 import kotlinx.coroutines.CoroutineScope
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpm.vocabuilder.adapters.DeckAdapter
 import kotlinx.coroutines.Dispatchers
@@ -104,6 +105,9 @@ class DecksFragment : Fragment() {
         binding.decksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         deckAdapter = DeckAdapter(emptyList())
         binding.decksRecyclerView.adapter = deckAdapter
+
+        val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        binding.decksRecyclerView.addItemDecoration(dividerItemDecoration)
 
         loadDecks()
 
