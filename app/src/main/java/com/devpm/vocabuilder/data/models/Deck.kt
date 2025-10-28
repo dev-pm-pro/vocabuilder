@@ -22,11 +22,11 @@ interface DeckDao {
     @Insert
     suspend fun insertDeck(deck: Deck)
 
-    @Query("SELECT * FROM decks WHERE userId = :uid LIMIT 1")
-    suspend fun getDeckByUid(uid: Int): Deck?
-
     @Query("SELECT * FROM decks WHERE id = :id LIMIT 1")
     suspend fun getDeckById(id: Int): Deck?
+
+    @Query("SELECT * FROM decks WHERE userId = :uid")
+    suspend fun getDecksByUid(uid: Int): List<Deck>
 
     @Update
     suspend fun updateDeck(deck: Deck)
