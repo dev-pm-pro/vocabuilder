@@ -1,5 +1,6 @@
 package com.devpm.vocabuilder.fragments
 
+import android.util.Log
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,9 @@ import com.devpm.vocabuilder.data.models.Card
 import com.devpm.vocabuilder.data.models.Deck
 import com.devpm.vocabuilder.databinding.FragmentDecksBinding
 import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.devpm.vocabuilder.adapters.DeckAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -32,6 +36,8 @@ class DecksFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var deckAdapter: DeckAdapter
 
     private val binding: FragmentDecksBinding by lazy {
         FragmentDecksBinding.inflate(layoutInflater)
@@ -56,6 +62,14 @@ class DecksFragment : Fragment() {
         }
         Toast.makeText(context, "Колода добавлена",
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadDecks() {
+        lifecycleScope.launch {
+            val decks = deckDao.getDecksByUid(app.user!!.id)
+            Log.d("DecksFragment", "Loaded decks: $decks")
+            deckAdapter.updateDecks(decks)
+        }
     }
 
     private fun goToNewCard() {
@@ -86,6 +100,16 @@ class DecksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.decksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        deckAdapter = DeckAdapter(emptyList())
+        binding.decksRecyclerView.adapter = deckAdapter
+
+        loadDecks()
+
+        binding.addCardBtn.setOnClickListener {
+            goToNewCard()
+        }
 
         binding.addCardBtn.setOnClickListener {
             goToNewCard()
