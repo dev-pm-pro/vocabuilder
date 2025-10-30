@@ -16,6 +16,7 @@ import com.devpm.vocabuilder.databinding.FragmentDecksBinding
 import kotlinx.coroutines.CoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devpm.vocabuilder.adapters.DeckAdapter
 import kotlinx.coroutines.Dispatchers
@@ -105,6 +106,12 @@ class DecksFragment : Fragment() {
         binding.decksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         deckAdapter = DeckAdapter(emptyList())
         binding.decksRecyclerView.adapter = deckAdapter
+
+        // Create callback ojbect from adapter
+        val swipeCallback = deckAdapter.SwipeToDeleteCallback(deckAdapter)
+        val itemTouchHelper = ItemTouchHelper(swipeCallback)
+        // Bind ItemTouchHelper to RecyclerView
+        itemTouchHelper.attachToRecyclerView(binding.decksRecyclerView)
 
         val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding.decksRecyclerView.addItemDecoration(dividerItemDecoration)
