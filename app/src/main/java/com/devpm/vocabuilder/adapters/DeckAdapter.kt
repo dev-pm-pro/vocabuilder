@@ -8,8 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.data.models.Deck
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.devpm.vocabuilder.data.models.DeckDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DeckAdapter(private var decks: List<Deck>)
+class DeckAdapter(
+    private var decks: List<Deck>,
+    private val deckDao: DeckDao
+)
     : RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
     inner class DeckViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val idTextView: TextView = itemView.findViewById(R.id.idView)
@@ -28,7 +36,7 @@ class DeckAdapter(private var decks: List<Deck>)
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
-            adapter.removeItem(position) // Реализуйте метод удаления элемента из адаптера и источника данных
+            adapter.removeItem(position)
         }
     }
 
@@ -48,10 +56,17 @@ class DeckAdapter(private var decks: List<Deck>)
     }
 
     fun removeItem(position: Int) {
-        val mutableDecks = decks.toMutableList()
-        mutableDecks.removeAt(position)
-        decks = mutableDecks
-        notifyItemRemoved(position)
+        val deckToRemove = decks[position]
+        CoroutineScope(Dispatchers.IO).launch {
+            deckDao.deleteDeck(deckToRemove)
+
+            withContext(Dispatchers.Main) {
+                val mutableDecks = decks.toMutableList()
+                mutableDecks.removeAt(position)
+                decks = mutableDecks
+                notifyItemRemoved(position)
+            }
+        }
     }
 
     // Update list data

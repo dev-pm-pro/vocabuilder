@@ -1,6 +1,7 @@
 package com.devpm.vocabuilder.data.models
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -29,6 +30,8 @@ data class Deck(
 
 @Dao
 interface DeckDao {
+    @Delete
+    suspend fun deleteDeck(deck: Deck)
 
     @Insert
     suspend fun insertDeck(deck: Deck)
