@@ -104,7 +104,7 @@ class DecksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.decksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        deckAdapter = DeckAdapter(emptyList(), deckDao)
+        deckAdapter = DeckAdapter(emptyList(), deckDao, lifecycleScope)
         binding.decksRecyclerView.adapter = deckAdapter
 
         // Create callback ojbect from adapter

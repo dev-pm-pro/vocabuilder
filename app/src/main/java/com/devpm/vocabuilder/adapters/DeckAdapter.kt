@@ -16,7 +16,8 @@ import kotlinx.coroutines.withContext
 
 class DeckAdapter(
     private var decks: List<Deck>,
-    private val deckDao: DeckDao
+    private val deckDao: DeckDao,
+    private val scope: CoroutineScope
 )
     : RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
     inner class DeckViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,7 +58,7 @@ class DeckAdapter(
 
     fun removeItem(position: Int) {
         val deckToRemove = decks[position]
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             deckDao.deleteDeck(deckToRemove)
 
             withContext(Dispatchers.Main) {
