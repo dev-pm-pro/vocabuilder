@@ -103,18 +103,19 @@ class DecksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.decksRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        deckAdapter = DeckAdapter(emptyList(), deckDao, lifecycleScope)
-        binding.decksRecyclerView.adapter = deckAdapter
+        val recyclerView = binding.decksRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        deckAdapter = DeckAdapter(emptyList(), deckDao, lifecycleScope, recyclerView)
+        recyclerView.adapter = deckAdapter
 
         // Create callback ojbect from adapter
         val swipeCallback = deckAdapter.SwipeToDeleteCallback(deckAdapter)
         val itemTouchHelper = ItemTouchHelper(swipeCallback)
         // Bind ItemTouchHelper to RecyclerView
-        itemTouchHelper.attachToRecyclerView(binding.decksRecyclerView)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        binding.decksRecyclerView.addItemDecoration(dividerItemDecoration)
+        recyclerView.addItemDecoration(dividerItemDecoration)
 
         loadDecks()
 

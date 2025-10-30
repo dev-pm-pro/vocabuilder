@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.devpm.vocabuilder.R
 import com.devpm.vocabuilder.data.models.Deck
+import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.devpm.vocabuilder.data.models.DeckDao
 import kotlinx.coroutines.CoroutineScope
@@ -17,9 +18,13 @@ import kotlinx.coroutines.withContext
 class DeckAdapter(
     private var decks: List<Deck>,
     private val deckDao: DeckDao,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val recyclerView: RecyclerView
 )
     : RecyclerView.Adapter<DeckAdapter.DeckViewHolder>() {
+    private var deletedDeck: Deck? = null
+    private var deletedPosition: Int = -1
+
     inner class DeckViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val idTextView: TextView = itemView.findViewById(R.id.idView)
         val titleTextView: TextView = itemView.findViewById(R.id.titleView)
@@ -57,15 +62,41 @@ class DeckAdapter(
     }
 
     fun removeItem(position: Int) {
-        val deckToRemove = decks[position]
+        deletedDeck = decks[position]
+        deletedPosition = position
+
         scope.launch {
-            deckDao.deleteDeck(deckToRemove)
+            deletedDeck?.let { deckDao.deleteDeck(it) }
 
             withContext(Dispatchers.Main) {
                 val mutableDecks = decks.toMutableList()
                 mutableDecks.removeAt(position)
                 decks = mutableDecks
                 notifyItemRemoved(position)
+                showUndoSnackbar()
+            }
+        }
+    }
+
+    private fun showUndoSnackbar() {
+        Snackbar.make(recyclerView, "Элемент удалён", Snackbar.LENGTH_LONG)
+            .setAction("ОТМЕНИТЬ") {
+                undoDelete()
+            }.show()
+    }
+
+    private fun undoDelete() {
+        deletedDeck?.let { deck ->
+            scope.launch {
+                deckDao.insertDeck(deck)
+
+                withContext(Dispatchers.Main) {
+                    val mutableDecks = decks.toMutableList()
+                    mutableDecks.add(deletedPosition, deck)
+                    decks = mutableDecks
+                    notifyItemInserted(deletedPosition)
+                    recyclerView.scrollToPosition(deletedPosition)
+                }
             }
         }
     }
